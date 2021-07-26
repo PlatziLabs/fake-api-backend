@@ -38,6 +38,9 @@ export class ProductsService {
   }
 
   getAll(params: FilterProductsDto) {
+    if (this.products.length === 0) {
+      this.generateProducts();
+    }
     if (params?.limit && params?.offset) {
       const end = params.offset + params?.limit;
       return this.products.slice(params.offset, end);
