@@ -23,16 +23,18 @@ export class ProductsService {
     const size = 50;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
+      const images = [];
+      const type = faker.helpers.randomize(['tech', 'people']);
+      for (let j = 0; index <= 3; j++) {
+        images.push(`https://placeimg.com/640/480${type}`);
+      }
       this.products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         description: faker.commerce.productDescription(),
         category: faker.helpers.randomize(this.categories),
-        image: faker.helpers.randomize([
-          'https://placeimg.com/640/480/tech',
-          'https://placeimg.com/640/480/people',
-        ]),
+        images,
       });
     }
   }
@@ -77,10 +79,14 @@ export class ProductsService {
     return true;
   }
 
-  create(data: CreateProductDto) {
+  create(body: CreateProductDto) {
+    const { categoryId, ...data } = body;
     const categoryIndex = this.categories.findIndex(
-      (item) => item.id === data.categoryId,
+      (item) => item.id === categoryId,
     );
+    if (categoryIndex === -1) {
+      throw new NotFoundException('Category not found');
+    }
     this.currentId = this.currentId + 1;
     const newProduct = {
       ...data,

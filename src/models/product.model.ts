@@ -6,5 +6,12 @@ export interface Product {
   price: number;
   description: string;
   category: Category;
-  image: string;
+  images: string[];
 }
+
+export type CreateProductDTO = Omit<Product, 'id'>;
+export type UpdateProductDTO = Partial<Product>;
+
+// export interface UpdateProductDTO extends Partial<Product> {
+//   categoryId: number;
+// }
