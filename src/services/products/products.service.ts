@@ -30,9 +30,9 @@ export class ProductsService {
         description: faker.commerce.productDescription(),
         category: faker.helpers.randomize(this.categories),
         images: [
-          'https://placeimg.com/640/480/any',
-          'https://placeimg.com/640/480/any',
-          'https://placeimg.com/640/480/any',
+          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
         ],
       });
     }
