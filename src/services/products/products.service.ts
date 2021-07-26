@@ -25,7 +25,7 @@ export class ProductsService {
       this.currentId = index + 1;
       const images = [];
       const type = faker.helpers.randomize(['tech', 'people']);
-      for (let j = 0; index <= 3; j++) {
+      for (let j = 0; j < 3; j++) {
         images.push(`https://placeimg.com/640/480/${type}`);
       }
       this.products.push({
