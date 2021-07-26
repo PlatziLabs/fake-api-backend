@@ -23,17 +23,17 @@ export class ProductsService {
     const size = 50;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
-      const images = [];
-      for (let j = 0; j < 3; j++) {
-        images.push(`https://placeimg.com/640/480/any`);
-      }
       this.products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         description: faker.commerce.productDescription(),
         category: faker.helpers.randomize(this.categories),
-        images,
+        images: [
+          'https://placeimg.com/640/480/any',
+          'https://placeimg.com/640/480/any',
+          'https://placeimg.com/640/480/any',
+        ],
       });
     }
   }
