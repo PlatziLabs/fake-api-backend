@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import * as faker from 'faker';
 
 import { Product } from '../../models/product.model';
@@ -38,7 +38,6 @@ export class ProductsService {
   }
 
   getAll(params: FilterProductsDto) {
-    console.log(params);
     if (params?.limit && params?.offset) {
       const end = params.offset + params?.limit;
       return this.products.slice(params.offset, end);
@@ -48,31 +47,31 @@ export class ProductsService {
 
   getProduct(id: number) {
     const product = this.products.find((item) => item.id === id);
-    if (product) {
-      return product;
+    if (!product) {
+      throw new NotFoundException('Product not found');
     }
-    return null;
+    return product;
   }
 
   update(id: number, changes: UpdateProductDto) {
     const productIndex = this.products.findIndex((item) => item.id === id);
-    if (productIndex !== -1) {
-      this.products[productIndex] = {
-        ...this.products[productIndex],
-        ...changes,
-      };
-      return this.products[productIndex];
+    if (productIndex === -1) {
+      throw new NotFoundException('Product not found');
     }
-    return null;
+    this.products[productIndex] = {
+      ...this.products[productIndex],
+      ...changes,
+    };
+    return this.products[productIndex];
   }
 
   delete(id: number) {
     const productIndex = this.products.findIndex((item) => item.id === id);
-    if (productIndex !== -1) {
-      this.products.splice(productIndex, 1);
-      return true;
+    if (productIndex === -1) {
+      throw new NotFoundException('Product not found');
     }
-    return null;
+    this.products.splice(productIndex, 1);
+    return true;
   }
 
   create(data: CreateProductDto) {
