@@ -4,7 +4,6 @@ import {
   IsNumber,
   IsPositive,
   IsOptional,
-  IsUrl,
   IsArray,
 } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
