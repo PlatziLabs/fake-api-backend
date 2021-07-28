@@ -38,6 +38,19 @@ export class ProductsService {
     }
   }
 
+  byCategory(categoryId: number, params: FilterProductsDto) {
+    if (this.products.length === 0) {
+      this.generateProducts();
+    }
+    if (params?.limit > 0 && params?.offset >= 0) {
+      const end = params.offset + params?.limit;
+      return this.products
+        .filter((item) => item.category.id === categoryId)
+        .slice(params.offset, end);
+    }
+    return this.products.filter((item) => item.category.id === categoryId);
+  }
+
   getAll(params: FilterProductsDto) {
     if (this.products.length === 0) {
       this.generateProducts();
