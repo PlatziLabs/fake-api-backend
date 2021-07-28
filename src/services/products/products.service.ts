@@ -32,9 +32,9 @@ export class ProductsService {
         description: faker.commerce.productDescription(),
         category,
         images: [
-          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
-          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
-          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
         ],
       });
     }
@@ -90,7 +90,7 @@ export class ProductsService {
       throw new NotFoundException('Product not found');
     }
     this.products.splice(productIndex, 1);
-    return true;
+    return { rta: true };
   }
 
   create(body: CreateProductDto) {
