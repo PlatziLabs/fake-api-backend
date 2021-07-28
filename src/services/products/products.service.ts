@@ -23,16 +23,18 @@ export class ProductsService {
     const size = 50;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
+      const category = faker.helpers.randomize(this.categories);
+      const typeImg = category.typeImg;
       this.products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         description: faker.commerce.productDescription(),
-        category: faker.helpers.randomize(this.categories),
+        category,
         images: [
-          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
-          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
-          `https://placeimg.com/640/480/any?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
+          `https://placeimg.com/640/480/${typeImg}?ramdom=${Math.random()}`,
         ],
       });
     }

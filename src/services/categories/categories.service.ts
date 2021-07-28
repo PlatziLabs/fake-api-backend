@@ -8,22 +8,27 @@ export class CategoriesService {
     {
       id: 1,
       name: 'Clothes',
+      typeImg: 'people',
     },
     {
       id: 2,
       name: 'Electronics',
+      typeImg: 'tech',
     },
     {
       id: 3,
       name: 'Furniture',
+      typeImg: 'arch',
     },
     {
       id: 4,
       name: 'Toys',
+      typeImg: 'any',
     },
     {
       id: 5,
       name: 'Others',
+      typeImg: 'animals',
     },
   ];
 
