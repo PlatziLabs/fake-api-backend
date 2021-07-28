@@ -20,7 +20,7 @@ export class ProductsService {
   }
 
   generateProducts() {
-    const size = 50;
+    const size = 200;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
       const category = faker.helpers.randomize(this.categories);
