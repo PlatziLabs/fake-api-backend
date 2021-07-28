@@ -11,6 +11,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 import { extname } from 'path';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
 export const editFileName = (req, file, callback) => {
   const fileExtName = extname(file.originalname);
@@ -21,6 +22,7 @@ export const editFileName = (req, file, callback) => {
   callback(null, `${randomName}${fileExtName}`);
 };
 
+@ApiTags('files')
 @Controller('files')
 export class FilesController {
   @Post('upload')
