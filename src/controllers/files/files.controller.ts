@@ -41,7 +41,7 @@ export class FilesController {
   }
 
   @Get(':filename')
-  seeUploadedFile(@Param('filename') image: string, @Res() res: Response) {
-    return res.sendFile(image, { root: './upload' });
+  seeUploadedFile(@Param('filename') filename: string, @Res() res: Response) {
+    return res.sendFile(filename, { root: './upload' });
   }
 }
