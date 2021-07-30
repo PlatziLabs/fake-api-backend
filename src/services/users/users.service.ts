@@ -26,7 +26,7 @@ export class UsersService {
       email: 'admin@mail.com',
       password: 'admin123',
       name: 'Admin',
-      role: Role.customer,
+      role: Role.admin,
     },
   ];
 
