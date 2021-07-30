@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { User } from './../../models/user.model';
+import { User, Role } from './../../models/user.model';
 import { CreateUserDto } from './../../dto/user.dto';
 
 @Injectable()
@@ -12,12 +12,21 @@ export class UsersService {
       email: 'john@mail.com',
       password: 'changeme',
       name: 'Jhon',
+      role: Role.customer,
     },
     {
       id: 2,
       email: 'maria@mail.com',
       password: '12345',
       name: 'Maria',
+      role: Role.customer,
+    },
+    {
+      id: 3,
+      email: 'admin@mail.com',
+      password: 'admin123',
+      name: 'Admin',
+      role: Role.customer,
     },
   ];
 
@@ -35,11 +44,23 @@ export class UsersService {
 
   create(dto: CreateUserDto) {
     this.currentId = this.currentId + 1;
-    const newUser = {
+    const newUser: User = {
       ...dto,
       id: this.currentId,
+      role: this.getRole(dto.role),
     };
     this.users.push(newUser);
     return newUser;
+  }
+
+  getRole(role: string) {
+    switch (role) {
+      case 'customer':
+        return Role.customer;
+      case 'admin':
+        return Role.admin;
+      default:
+        return Role.customer;
+    }
   }
 }
