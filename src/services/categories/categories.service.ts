@@ -8,27 +8,27 @@ export class CategoriesService {
     {
       id: 1,
       name: 'Clothes',
-      typeImg: 'people',
+      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
     },
     {
       id: 2,
       name: 'Electronics',
-      typeImg: 'tech',
+      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
     },
     {
       id: 3,
       name: 'Furniture',
-      typeImg: 'arch',
+      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
     },
     {
       id: 4,
       name: 'Toys',
-      typeImg: 'any',
+      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
     },
     {
       id: 5,
       name: 'Others',
-      typeImg: 'animals',
+      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
     },
   ];
 

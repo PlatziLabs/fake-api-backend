@@ -24,7 +24,6 @@ export class ProductsService {
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
       const category = faker.helpers.randomize(this.categories);
-      const typeImg = category.typeImg;
       this.products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
@@ -32,9 +31,9 @@ export class ProductsService {
         description: faker.commerce.productDescription(),
         category,
         images: [
-          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
-          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
-          `https://placeimg.com/640/480/${typeImg}?r=${Math.random()}`,
+          `https://placeimg.com/640/480/any?r=${Math.random()}`,
+          `https://placeimg.com/640/480/any?r=${Math.random()}`,
+          `https://placeimg.com/640/480/any?r=${Math.random()}`,
         ],
       });
     }
