@@ -57,6 +57,14 @@ export class ProductsService {
     if (this.products.length === 0) {
       this.generateProducts();
     }
+
+    const { price_min, price_max } = params;
+    if (price_min && price_max) {
+      this.products = this.products.filter(
+        (item) => item.price >= price_min && item.price <= price_max,
+      );
+    }
+
     if (params?.limit > 0 && params?.offset >= 0) {
       const end = params.offset + params?.limit;
       return this.products.slice(params.offset, end);
