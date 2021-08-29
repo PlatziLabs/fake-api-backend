@@ -15,10 +15,37 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/ (GET) 404', () => {
     return request(app.getHttpServer())
       .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .send()
+      .expect(404)
   });
+  it('/api/categories (GET) 200', async (): Promise<void> => {
+    const response = await request(app.getHttpServer())
+      .get('/categories')
+      .send()
+      .expect(200);
+
+    expect(JSON.parse(response.text)).toStrictEqual([
+      { id: 1, name: 'Clothes', typeImg: 'people' },
+      { id: 2, name: 'Electronics', typeImg: 'tech' },
+      { id: 3, name: 'Furniture', typeImg: 'arch' },
+      { id: 4, name: 'Toys', typeImg: 'any' },
+      { id: 5, name: 'Others', typeImg: 'animals' },
+    ]);
+  });
+  it('/api/categories (POST) 201', async (): Promise<void> => {
+    const response = await request(app.getHttpServer())
+      .post('/categories')
+      .send({ name: 'hello world', typeImg: 'TheWorld' })
+      .expect(201);
+
+    expect(JSON.parse(response.text)).toStrictEqual({
+      id: 6,
+      name: 'hello world',
+      typeImg: 'TheWorld',
+    });
+  });
+
 });
