@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { Category } from '../../models/category.model';
+import { CreateCategorytDto } from '../../dto/category.dto';
 
 @Injectable()
 export class CategoriesService {
+  private currentId = 5;
   private categories: Category[] = [
     {
       id: 1,
@@ -42,5 +44,17 @@ export class CategoriesService {
       return category;
     }
     return null;
+  }
+
+  create(body: CreateCategorytDto) {
+    const { ...data } = body;
+
+    this.currentId = this.currentId + 1;
+    const newCategory = {
+      ...data,
+      id: this.currentId,
+    };
+    this.categories.push(newCategory);
+    return newCategory;
   }
 }
