@@ -53,24 +53,19 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
   it(`call ${CategoriesController.name}.getProductsByCategory() should be successfully`, () => {
-    const filter = { limit: 1, offset: 0 }
+    const filter = { limit: 1, offset: 0 };
     const result = [
       {
         id: 1,
-        title: 'Incredible Wooden Pizza',
+        title: 'The Title',
         price: 310,
-        description:
-          'The slim & simple Maple Gaming Keyboard from Dev Byte comes with a sleek body and 7- Color RGB LED Back-lighting for smart functionality',
+        description: 'The Description',
         category: {
           id: 1,
           name: 'Others',
           typeImg: 'animals',
         },
-        images: [
-          'https://placeimg.com/640/480/animals?r=0.6190634428400144',
-          'https://placeimg.com/640/480/animals?r=0.831030587192362',
-          'https://placeimg.com/640/480/animals?r=0.1705222583330448',
-        ],
+        images: ['image1', 'image2', 'image3'],
       },
     ];
     const mock = jest

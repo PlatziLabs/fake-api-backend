@@ -47,5 +47,11 @@ describe('AppController (e2e)', () => {
       typeImg: 'TheWorld',
     });
   });
-
+  // it('/api/categories (POST) 400', async (): Promise<void> => {
+  //   const response = await request(app.getHttpServer())
+  //     .post('/categories')
+  //     .send({ name: '', typeImage: '' })
+  //     .expect(400);
+  //   expect(response).toBeUndefined();
+  // });
 });
