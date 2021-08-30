@@ -20,8 +20,8 @@ export class CategoriesController {
   }
 
   @Post()
-  create(@Body() category: CreateCategorytDto) {
-    return this.categoriesService.create(category);
+  async create(@Body() category: CreateCategorytDto) {
+    return await this.categoriesService.create(category);
   }
 
   @Get(':id/products')

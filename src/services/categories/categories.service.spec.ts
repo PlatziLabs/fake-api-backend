@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesService } from './categories.service';
 
-const fictureCategories = [
+const fixtureCategories = [
   {
     id: 1,
     name: 'Clothes',
@@ -45,21 +45,21 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
   });
   it(`call ${CategoriesService.name}.getAll() should be successfully`, () => {
     const actual = service.getAll();
-    expect(actual).toStrictEqual(fictureCategories);
+    expect(actual).toStrictEqual(fixtureCategories);
   });
   it(`call ${CategoriesService.name}.getCategory() should be successfully`, () => {
     const actual = service.getCategory(3);
-    expect(actual).toStrictEqual(fictureCategories[2]);
+    expect(actual).toStrictEqual(fixtureCategories[2]);
   });
   it(`call ${CategoriesService.name}.getCategory() should be unsuccessfully`, () => {
     const actual = service.getCategory(-1);
     expect(actual).toBeNull();
   });
-  it(`call ${CategoriesService.name}.create() should be successfully`, () => {
+  it(`call ${CategoriesService.name}.create() should be successfully`, async() => {
     const data = { name: 'Hello World', typeImg: 'TheWorld' };
-    const actual = service.create(data);
+    const actual = await service.create(data);
     expect(actual).toStrictEqual(
-      Object.assign({}, data, { id: fictureCategories.length + 1 }),
+      Object.assign({}, data, { id: fixtureCategories.length + 1 }),
     );
   });
 });

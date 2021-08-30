@@ -46,7 +46,7 @@ export class CategoriesService {
     return null;
   }
 
-  create(body: CreateCategorytDto) {
+  async create(body: CreateCategorytDto) {
     const { ...data } = body;
 
     this.currentId = this.currentId + 1;
