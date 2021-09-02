@@ -58,18 +58,13 @@ export class ProductsService {
       this.generateProducts();
     }
 
-    const { price_min, price_max } = params;
-    if (price_min && price_max) {
-      this.products = this.products.filter(
-        (item) => item.price >= price_min && item.price <= price_max,
+    let productsWithParams = [...this.products];
+    const { price } = params;
+    if (price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price === price,
       );
     }
-
-    if (params?.limit > 0 && params?.offset >= 0) {
-      const end = params.offset + params?.limit;
-      return this.products.slice(params.offset, end);
-    }
-    return this.products;
   }
 
   getProduct(id: number) {
