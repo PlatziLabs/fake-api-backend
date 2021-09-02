@@ -65,6 +65,13 @@ export class ProductsService {
         (item) => item.price === price,
       );
     }
+
+    const { price_min, price_max } = params;
+    if (price_min && price_max && !price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price >= price_min && item.price <= price_max,
+      );
+    }
   }
 
   getProduct(id: number) {
