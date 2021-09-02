@@ -72,6 +72,13 @@ export class ProductsService {
         (item) => item.price >= price_min && item.price <= price_max,
       );
     }
+
+    const { limit, offset } = params;
+    if (limit > 0 && offset >= 0) {
+      const end = offset + limit;
+      productsWithParams = productsWithParams.slice(offset, end);
+    }
+    return productsWithParams;
   }
 
   getProduct(id: number) {
