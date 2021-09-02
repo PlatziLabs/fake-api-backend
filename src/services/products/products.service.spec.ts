@@ -27,9 +27,6 @@ describe('ProductsService', () => {
       const productsFiltered = service.getAll(newFilters);
 
       expect(productsFiltered).toStrictEqual(productsAll);
-
-      const products = service.getAll(newFilters);
-      expect(products).toStrictEqual(productsAll);
     });
 
     it('should return the products with the filter price', () => {
