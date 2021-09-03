@@ -1,11 +1,13 @@
 name: CI for Lint project
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
-    name: Build and Lint
+    name: Run Lint
     steps:
     - uses: actions/checkout@v2
       name: Check out repository
@@ -13,8 +15,7 @@ jobs:
       name: Set up Node.js
       with:
         node-version: 12
-    - run: |
-        npm ci
-        npm run build
-        npm run lint
-      name: Build and Lint
+    - name: Install dependencies
+      run: npm install
+    - name: Run Lint
+      run: npm run lint
