@@ -1,45 +1,56 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesService } from './categories.service';
-
-const fixtureCategories = [
-  { id: 1, name: 'Clothes', typeImg: 'people' },
-  { id: 2, name: 'Electronics', typeImg: 'tech' },
-  { id: 3, name: 'Furniture', typeImg: 'arch' },
-  { id: 4, name: 'Toys', typeImg: 'any' },
-  { id: 5, name: 'Others', typeImg: 'animals' },
-];
+import { DataSetModule, DataSetService } from '@app/data-set';
+import { CreateCategorytDto } from '../../dto/category.dto';
+import { NotFoundException } from '@nestjs/common';
 
 describe(`Inspect ${CategoriesService.name} class`, () => {
   let service: CategoriesService;
+  let dataSet: DataSetService<CreateCategorytDto>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DataSetModule],
       providers: [CategoriesService],
     }).compile();
 
+    dataSet = module.get<DataSetService<CreateCategorytDto>>(DataSetService);
     service = module.get<CategoriesService>(CategoriesService);
   });
 
   it(`created ${CategoriesService.name} should be defined`, () => {
     expect(service).toBeDefined();
   });
-  it(`call ${CategoriesService.name}.getAll() should be successfully`, () => {
+  it(`get all categories`, () => {
+    const fixture = [{ id: 10, name: 'name', typeImg: 'typeImg' }];
+    const mock = jest.spyOn(dataSet, 'get').mockReturnValueOnce(fixture);
+
     const actual = service.getAll();
-    expect(actual).toStrictEqual(fixtureCategories);
+    expect(actual).toStrictEqual(fixture);
+    expect(mock).toHaveBeenCalledWith();
   });
-  it(`call ${CategoriesService.name}.getCategory() should be successfully`, () => {
-    const actual = service.getCategory(3);
-    expect(actual).toStrictEqual(fixtureCategories[2]);
+  it(`get a category by id`, () => {
+    const fixture = { id: 10, name: 'name', typeImg: 'typeImg' };
+    const mock = jest.spyOn(dataSet, 'filter').mockImplementationOnce(() => {
+      const dssFixture = new DataSetService<CreateCategorytDto>();
+      dssFixture.fill([fixture], 10);
+      return dssFixture;
+    });
+
+    const actual = service.getCategory(10);
+    expect(actual).toStrictEqual(fixture);
+    expect(mock).toHaveBeenCalledWith('id', 10);
   });
-  it(`call ${CategoriesService.name}.getCategory() should be unsuccessfully`, () => {
-    const actual = service.getCategory(-1);
-    expect(actual).toBeNull();
+  it(`category not found`, () => {
+    expect(() => service.getCategory(-10)).toThrow(NotFoundException);
   });
-  it(`call ${CategoriesService.name}.create() should be successfully`, async() => {
-    const data = { name: 'Hello World', typeImg: 'TheWorld' };
-    const actual = await service.create(data);
-    expect(actual).toStrictEqual(
-      Object.assign({}, data, { id: fixtureCategories.length + 1 }),
-    );
+  it(`create a category`, () => {
+    const fixture = { name: 'Hello World', typeImg: 'TheWorld' };
+    const mock = jest
+      .spyOn(dataSet, 'create')
+      .mockReturnValueOnce({ id: 0, ...fixture });
+    const actual = service.create(fixture);
+    expect(actual).toStrictEqual({ id: 0, ...fixture });
+    expect(mock).toHaveBeenCalledWith(fixture);
   });
 });

@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { ProductsService } from '../../services/products/products.service';
+import { DataSetModule } from '@app/data-set';
 
 describe(`Inspect ${CategoriesController.name} class`, () => {
   let controller: CategoriesController;
@@ -10,6 +11,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DataSetModule],
       controllers: [CategoriesController],
       providers: [CategoriesService, ProductsService],
     }).compile();
@@ -22,7 +24,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
   it(`creates ${CategoriesController.name} should be defined`, () => {
     expect(controller).toBeDefined();
   });
-  it(`call ${CategoriesController.name}.getAll() should be successfully`, () => {
+  it(`Get all categories`, () => {
     const result = [{ id: 1, name: 'Laptops', typeImg: 'HP one station' }];
     const mock = jest
       .spyOn(categoriesService, 'getAll')
@@ -32,27 +34,29 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(actual).toStrictEqual(result);
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
-  it(`call ${CategoriesController.name}.create() should be successfully`, async () => {
+  it(`Create a new category`, () => {
     const body = { name: 'bears', typeImg: 'Yogi the bear' };
     const result = Object.assign({}, body, { id: 6 });
     const mock = jest
       .spyOn(categoriesService, 'create')
-      .mockResolvedValueOnce(result);
+      .mockReturnValueOnce(result);
     const mockInput = [body];
-    const actual = await controller.create(body);
+    const actual = controller.create(body);
     expect(actual).toStrictEqual(result);
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
-  it(`call ${CategoriesController.name}.create() should throws error`, async () => {
+  it(`Fail when create a new category`, () => {
     const body = { name: 'bears', typeImg: 'Yogi the bear' };
     const mock = jest
       .spyOn(categoriesService, 'create')
-      .mockRejectedValueOnce(new Error('MOCK ERROR'));
+      .mockImplementationOnce(() => {
+        throw new Error('MOCK ERROR');
+      });
     const mockInput = [body];
-    await expect(controller.create(body)).rejects.toThrow(/MOCK ERROR/gm);
+    expect(() => controller.create(body)).toThrow(/MOCK ERROR/gm);
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
-  it(`call ${CategoriesController.name}.getProductsByCategory() should be successfully`, () => {
+  it(`Get a category with its products`, () => {
     const filter = { limit: 1, offset: 0 };
     const result = [
       {

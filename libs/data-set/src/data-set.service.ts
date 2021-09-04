@@ -9,7 +9,7 @@ export class DataSetService<T> {
   private id = 0;
   private readonly dataSet: (IModel & T)[] = [];
 
-  fill(dataSet: (IModel & T)[], id: number = 0) {
+  fill(dataSet: (IModel & T)[], id = 0) {
     for (const data of dataSet) {
       this.dataSet.push({ ...data });
     }
