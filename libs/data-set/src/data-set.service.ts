@@ -22,7 +22,7 @@ export class DataSetService<T> {
   }
 
   find(
-    search: Partial<IDataSetModel & T> | string | string[] | Function,
+    search: Partial<IDataSetModel & T & any> | string | string[] | Function,
   ): DataSetService<T> {
     const DataSet = new DataSetService<T>();
     let filtered: Array<IDataSetModel & T> = [];
@@ -40,7 +40,18 @@ export class DataSetService<T> {
     } else {
       filtered = this.dataSet.filter((data) =>
         Object.keys(search)
-          .map((s) => data[s] === search[s])
+          .map((s) => {
+            if (
+              search[s].hasOwnProperty('min') &&
+              search[s].hasOwnProperty('max')
+            ) {
+              return data[s] > search[s].min && data[s] < search[s].max;
+            } else if (search[s].hasOwnProperty('max')) {
+              return data[s] < search[s].max;
+            } else if (search[s].hasOwnProperty('min')) {
+              return data[s] > search[s].min;
+            } else return data[s] === search[s];
+          })
           .reduce((accumulator, current) => accumulator && current, true),
       );
     }

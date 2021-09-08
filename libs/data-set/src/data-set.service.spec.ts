@@ -1,29 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataSetService } from './data-set.service';
 
-interface ICategoryModel {
+interface IProductTestModel {
   name: string;
   description?: string;
   image?: string;
   deleted?: boolean;
-}
-
-interface IProductModel {
-  name: string;
-  description?: string;
-  image?: string;
-  deleted?: boolean;
+  price?: number;
 }
 
 describe('DataSetService', () => {
-  let service: DataSetService<ICategoryModel>;
+  let service: DataSetService<IProductTestModel>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [DataSetService],
     }).compile();
 
-    service = module.get<DataSetService<ICategoryModel>>(DataSetService);
+    service = module.get<DataSetService<IProductTestModel>>(DataSetService);
   });
 
   it('should be defined', () => {
@@ -162,10 +156,49 @@ describe('DataSetService', () => {
     service.fill(fixture);
     const expected = service
       .find(
-        (value: ICategoryModel) =>
+        (value: IProductTestModel) =>
           value.deleted === null || value.deleted === false,
       )
       .get();
     expect(expected).toStrictEqual([fixture[1], fixture[2]]);
+  });
+
+  it('find using max values should return a valid array', () => {
+    const fixture = [
+      { id: 1, name: 'product 1', price: 10 },
+      { id: 2, name: 'product 2', price: 20 },
+      { id: 3, name: 'product 3', price: 30 },
+      { id: 4, name: 'product 4', price: 40 },
+      { id: 5, name: 'product 5', price: 25 },
+    ];
+    service.fill(fixture);
+    const expected = service.find({ price: { max: 30 } }).get();
+    expect(expected).toStrictEqual([fixture[0], fixture[1], fixture[4]]);
+  });
+
+  it('find using min values should return a valid array', () => {
+    const fixture = [
+      { id: 1, name: 'product 1', price: 10 },
+      { id: 2, name: 'product 2', price: 20 },
+      { id: 3, name: 'product 3', price: 30 },
+      { id: 4, name: 'product 4', price: 40 },
+      { id: 5, name: 'product 5', price: 25 },
+    ];
+    service.fill(fixture);
+    const expected = service.find({ price: { min: 30 } }).get();
+    expect(expected).toStrictEqual([fixture[3]]);
+  });
+
+  it('find using min and max values should return a valid array', () => {
+    const fixture = [
+      { id: 1, name: 'product 1', price: 10 },
+      { id: 2, name: 'product 2', price: 20 },
+      { id: 3, name: 'product 3', price: 30 },
+      { id: 4, name: 'product 4', price: 40 },
+      { id: 5, name: 'product 5', price: 25 },
+    ];
+    service.fill(fixture);
+    const expected = service.find({ price: { min: 15, max: 35 } }).get();
+    expect(expected).toStrictEqual([fixture[1], fixture[2], fixture[4]]);
   });
 });
