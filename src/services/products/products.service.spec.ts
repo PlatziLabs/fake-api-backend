@@ -31,40 +31,40 @@ describe('ProductsService', () => {
 
     it('should return the products with the filter price', () => {
       const filters = new FilterProductsDto();
-      let productsAll = service.getAll(filters);
+      const productsAll = service.getAll(filters);
 
       const newFilters = new FilterProductsDto();
       newFilters.price = 10;
       const productsFiltered = service.getAll(newFilters);
 
-      productsAll = productsAll.filter(
+      const result = productsAll.filter(
         (item) => item.price === newFilters.price,
       );
 
-      expect(productsFiltered).toStrictEqual(productsAll);
+      expect(productsFiltered).toStrictEqual(result);
     });
 
     it('should return the products with the filters price_min and price_max', () => {
       const filters = new FilterProductsDto();
-      let productsAll = service.getAll(filters);
+      const productsAll = service.getAll(filters);
 
       const newFilters = new FilterProductsDto();
       newFilters.price_min = 200;
       newFilters.price_max = 400;
       const productsFiltered = service.getAll(newFilters);
 
-      productsAll = productsAll.filter(
+      const result = productsAll.filter(
         (item) =>
           item.price >= newFilters.price_min &&
           item.price <= newFilters.price_max,
       );
 
-      expect(productsFiltered).toStrictEqual(productsAll);
+      expect(productsFiltered).toStrictEqual(result);
     });
 
     it('should return the products with the filters limit and offset', () => {
       const filters = new FilterProductsDto();
-      let productsAll = service.getAll(filters);
+      const productsAll = service.getAll(filters);
 
       const newFilters = new FilterProductsDto();
       newFilters.limit = 20;
@@ -72,9 +72,9 @@ describe('ProductsService', () => {
       const productsFiltered = service.getAll(newFilters);
 
       const end = newFilters.offset + newFilters.limit;
-      productsAll = productsAll.slice(newFilters.offset, end);
+      const result = productsAll.slice(newFilters.offset, end);
 
-      expect(productsFiltered).toStrictEqual(productsAll);
+      expect(productsFiltered).toStrictEqual(result);
     });
   });
 });
