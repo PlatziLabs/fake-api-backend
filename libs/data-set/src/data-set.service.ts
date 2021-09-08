@@ -1,20 +1,20 @@
 import { Injectable } from '@nestjs/common';
 
-export interface IModel {
+export interface IDataSetModel {
   id: number;
 }
 
 @Injectable()
 export class DataSetService<T> {
   private id = 0;
-  private dataSet: (IModel & T)[] = [];
+  private dataSet: (IDataSetModel & T)[] = [];
 
-  fill(dataSet: (IModel & T)[], id?: number) {
+  fill(dataSet: (IDataSetModel & T)[], id?: number) {
     this.dataSet = [...this.dataSet, ...dataSet];
     this.id = id ?? dataSet.length;
   }
 
-  create(newDataSet: T): IModel & T {
+  create(newDataSet: T): IDataSetModel & T {
     this.id++;
     const newItem = { id: this.id, ...newDataSet };
     this.dataSet.push(newItem);
@@ -22,10 +22,10 @@ export class DataSetService<T> {
   }
 
   filter(
-    search: Partial<IModel & T> | string | string[] | Function,
+    search: Partial<IDataSetModel & T> | string | string[] | Function,
   ): DataSetService<T> {
     const DataSet = new DataSetService<T>();
-    let filtered: Array<IModel & T> = [];
+    let filtered: Array<IDataSetModel & T> = [];
 
     if (typeof search === 'string') {
       filtered = this.dataSet.filter((data) => data[search]);
@@ -49,11 +49,11 @@ export class DataSetService<T> {
     return DataSet;
   }
 
-  get(): (IModel & T)[] {
+  get(): (IDataSetModel & T)[] {
     return [...this.dataSet];
   }
 
-  first(): IModel & T {
+  first(): IDataSetModel & T {
     return this.dataSet[0] ?? null;
   }
 }
