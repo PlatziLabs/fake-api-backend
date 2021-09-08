@@ -40,7 +40,7 @@ export class CategoriesService {
   }
 
   getCategory(id: number) {
-    const category = this.categories.filter({ id }).first();
+    const category = this.categories.find({ id }).first();
     if (category) {
       return category;
     }

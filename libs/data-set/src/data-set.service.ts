@@ -21,7 +21,7 @@ export class DataSetService<T> {
     return newItem;
   }
 
-  filter(
+  find(
     search: Partial<IDataSetModel & T> | string | string[] | Function,
   ): DataSetService<T> {
     const DataSet = new DataSetService<T>();

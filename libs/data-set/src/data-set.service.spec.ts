@@ -8,6 +8,13 @@ interface ICategoryModel {
   deleted?: boolean;
 }
 
+interface IProductModel {
+  name: string;
+  description?: string;
+  image?: string;
+  deleted?: boolean;
+}
+
 describe('DataSetService', () => {
   let service: DataSetService<ICategoryModel>;
 
@@ -56,62 +63,62 @@ describe('DataSetService', () => {
     expect(expected).toStrictEqual(fixture);
   });
 
-  it('when filter should get first match', () => {
+  it('when find should get first match', () => {
     const fixture = [
       { id: 1, name: 'new category' },
       { id: 2, name: 'new cat' },
       { id: 3, name: 'cat' },
     ];
     service.fill(fixture);
-    const expected = service.filter({ id: 2 }).first();
+    const expected = service.find({ id: 2 }).first();
     expect(expected).toStrictEqual(fixture[1]);
   });
 
-  it('when filter should get first match', () => {
+  it('when find should get first match', () => {
     const fixture = [
       { id: 1, name: 'new category' },
       { id: 2, name: 'new cat' },
       { id: 3, name: 'cat' },
     ];
     service.fill(fixture);
-    const expected = service.filter({ id: 2 }).first();
+    const expected = service.find({ id: 2 }).first();
     expect(expected).toStrictEqual(fixture[1]);
   });
 
-  it('when filter should get filtered array', () => {
+  it('when find should get filtered array', () => {
     const fixture = [
       { id: 1, name: 'category' },
       { id: 2, name: 'cat' },
       { id: 3, name: 'cat' },
     ];
     service.fill(fixture);
-    const expected = service.filter({ name: 'cat' }).get();
+    const expected = service.find({ name: 'cat' }).get();
     expect(expected).toStrictEqual([fixture[1], fixture[2]]);
   });
 
-  it('when filter should get filtered array', () => {
+  it('when find should get filtered array', () => {
     const fixture = [
       { id: 1, name: 'category' },
       { id: 2, name: 'cat' },
       { id: 3, name: 'cat', deleted: true },
     ];
     service.fill(fixture);
-    const expected = service.filter({ name: 'cat', deleted: true }).get();
+    const expected = service.find({ name: 'cat', deleted: true }).get();
     expect(expected).toStrictEqual([fixture[2]]);
   });
 
-  it('when filter should get filtered array when key exists', () => {
+  it('when find should get filtered array when key exists', () => {
     const fixture = [
       { id: 1, name: 'category', description: 'this is a cat' },
       { id: 2, name: 'cat' },
       { id: 3, name: 'cat', description: 'this is a category1' },
     ];
     service.fill(fixture);
-    const expected = service.filter('description').get();
+    const expected = service.find('description').get();
     expect(expected).toStrictEqual([fixture[0], fixture[2]]);
   });
 
-  it('when filter should get filtered array when multiple keys exists', () => {
+  it('when find should get filtered array when multiple keys exists', () => {
     const fixture = [
       { id: 1, name: 'category', description: 'this is a cat' },
       { id: 2, name: 'cat', image: 'url' },
@@ -119,11 +126,11 @@ describe('DataSetService', () => {
       { id: 4, name: 'cate', deleted: true, image: 'some url' },
     ];
     service.fill(fixture);
-    const expected = service.filter(['image', 'deleted']).get();
+    const expected = service.find(['image', 'deleted']).get();
     expect(expected).toStrictEqual([fixture[3]]);
   });
 
-  it('when filter should get filtered an empty array when multiple keys exists', () => {
+  it('when find should get filtered an empty array when multiple keys exists', () => {
     const fixture = [
       { id: 1, name: 'category', description: 'this is a cat' },
       { id: 2, name: 'cat', image: 'url' },
@@ -131,22 +138,22 @@ describe('DataSetService', () => {
       { id: 4, name: 'cate', deleted: false },
     ];
     service.fill(fixture);
-    const expected = service.filter(['description', 'image']).get();
+    const expected = service.find(['description', 'image']).get();
     expect(expected).toStrictEqual([]);
   });
 
-  it('when filter should get filtered array when a key is boolean or null', () => {
+  it('when find should get filtered array when a key is boolean or null', () => {
     const fixture = [
       { id: 1, name: 'category', deleted: true },
       { id: 2, name: 'cat', deleted: false },
       { id: 3, name: 'cat', deleted: null },
     ];
     service.fill(fixture);
-    const expected = service.filter(['deleted']).get();
+    const expected = service.find(['deleted']).get();
     expect(expected).toStrictEqual([fixture[0]]);
   });
 
-  it('when filter should get filtered array with function filter', () => {
+  it('when find should get filtered array with function find', () => {
     const fixture = [
       { id: 1, name: 'category', deleted: true },
       { id: 2, name: 'cat', deleted: false },
@@ -154,7 +161,7 @@ describe('DataSetService', () => {
     ];
     service.fill(fixture);
     const expected = service
-      .filter(
+      .find(
         (value: ICategoryModel) =>
           value.deleted === null || value.deleted === false,
       )
