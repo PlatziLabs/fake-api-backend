@@ -7,29 +7,45 @@ export interface IModel {
 @Injectable()
 export class DataSetService<T> {
   private id = 0;
-  private readonly dataSet: (IModel & T)[] = [];
+  private dataSet: (IModel & T)[] = [];
 
-  fill(dataSet: (IModel & T)[], id = 0) {
-    for (const data of dataSet) {
-      this.dataSet.push({ ...data });
-    }
-    if (id === 0) this.id = dataSet.length;
-    else this.id = id;
+  fill(dataSet: (IModel & T)[], id?: number) {
+    this.dataSet = [...this.dataSet, ...dataSet];
+    this.id = id ?? dataSet.length;
   }
 
   create(newDataSet: T): IModel & T {
     this.id++;
-    const createdDataSet = { id: this.id, ...newDataSet };
-    this.dataSet.push(createdDataSet);
-    return createdDataSet;
+    const newItem = { id: this.id, ...newDataSet };
+    this.dataSet.push(newItem);
+    return newItem;
   }
 
-  filter(key: string, value: string | number): DataSetService<T> {
+  filter(
+    search: Partial<IModel & T> | string | string[] | Function,
+  ): DataSetService<T> {
     const DataSet = new DataSetService<T>();
-    DataSet.fill(
-      this.dataSet.filter((data) => data[key] === value),
-      this.id,
-    );
+    let filtered: Array<IModel & T> = [];
+
+    if (typeof search === 'string') {
+      filtered = this.dataSet.filter((data) => data[search]);
+    } else if (Array.isArray(search)) {
+      filtered = this.dataSet.filter((data) =>
+        search
+          .map((s) => data[s])
+          .reduce((accumulator, current) => accumulator && current, true),
+      );
+    } else if (typeof search === 'function') {
+      filtered = this.dataSet.filter((value, key) => search(value, key));
+    } else {
+      filtered = this.dataSet.filter((data) =>
+        Object.keys(search)
+          .map((s) => data[s] === search[s])
+          .reduce((accumulator, current) => accumulator && current, true),
+      );
+    }
+
+    DataSet.fill(filtered, this.id);
     return DataSet;
   }
 

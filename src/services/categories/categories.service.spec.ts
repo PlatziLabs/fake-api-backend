@@ -39,7 +39,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
 
     const actual = service.getCategory(10);
     expect(actual).toStrictEqual(fixture);
-    expect(mock).toHaveBeenCalledWith('id', 10);
+    expect(mock).toHaveBeenCalledWith({ id: 10 });
   });
   it(`category not found`, () => {
     expect(() => service.getCategory(-10)).toThrow(NotFoundException);
