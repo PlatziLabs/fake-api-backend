@@ -162,4 +162,16 @@ describe('ProductsController', () => {
     expect(service.update).toBeCalled();
     expect(service.update).toHaveBeenCalledTimes(1);
   });
+
+  it(`call ${ProductsController.name}.delete()`, () => {
+    const idProductToDelete = 1;
+    const mockDeleteResponse = { rta: true };
+
+    jest.spyOn(service, 'delete').mockImplementation(() => mockDeleteResponse);
+    const response = controller.delete(idProductToDelete);
+
+    expect(response).toBe(mockDeleteResponse);
+    expect(service.delete).toBeCalled();
+    expect(service.delete).toHaveBeenCalledTimes(1);
+  });
 });
