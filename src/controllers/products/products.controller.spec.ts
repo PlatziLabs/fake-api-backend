@@ -3,6 +3,7 @@ import { ProductsController } from './products.controller';
 import { ProductsService } from '../../services/products/products.service';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { FilterProductsDto } from '../../dto/product.dto';
+import { CreateProductDto } from '../../dto/product.dto';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
@@ -24,7 +25,7 @@ describe('ProductsController', () => {
 
   it(`call ${ProductsController.name}.getAll()`, () => {
     const filters = new FilterProductsDto();
-    const mock = [
+    const mockProducts = [
       {
         id: 21,
         title: 'Fantastic Fresh Chair',
@@ -44,10 +45,11 @@ describe('ProductsController', () => {
       },
     ];
 
-    jest.spyOn(service, 'getAll').mockImplementation(() => mock);
+    jest.spyOn(service, 'getAll').mockImplementation(() => mockProducts);
 
-    const rta = controller.getAll(filters);
-    expect(rta).toBe(mock);
+    const response = controller.getAll(filters);
+
+    expect(response).toBe(mockProducts);
     expect(service.getAll).toBeCalled();
     expect(service.getAll).toHaveBeenCalledTimes(1);
   });
