@@ -53,4 +53,31 @@ describe('ProductsController', () => {
     expect(service.getAll).toBeCalled();
     expect(service.getAll).toHaveBeenCalledTimes(1);
   });
+
+  it(`call ${ProductsController.name}.getProduct()`, () => {
+    const mockProduct = {
+      id: 1,
+      title: 'Gorgeous Rubber Shoes',
+      price: 803,
+      description:
+        'The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J',
+      category: {
+        id: 4,
+        name: 'Toys',
+        typeImg: 'any',
+      },
+      images: [
+        'https://placeimg.com/640/480/any?r=0.4303855365201734',
+        'https://placeimg.com/640/480/any?r=0.37952742592490796',
+        'https://placeimg.com/640/480/any?r=0.6533577033687712',
+      ],
+    };
+
+    jest.spyOn(service, 'getProduct').mockImplementation(() => mockProduct);
+    const response = controller.getProduct(mockProduct.id);
+
+    expect(response).toBe(mockProduct);
+    expect(service.getProduct).toBeCalled();
+    expect(service.getProduct).toHaveBeenCalledTimes(1);
+  });
 });
