@@ -121,4 +121,45 @@ describe('ProductsController', () => {
     expect(service.create).toBeCalled();
     expect(service.create).toHaveBeenCalledTimes(1);
   });
+
+  it(`call ${ProductsController.name}.update()`, () => {
+    const productToUpdate = {
+      title: 'Gorgeous Rubber Shoes',
+      price: 800,
+      description:
+        'The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J',
+      categoryId: 4,
+      images: [
+        'https://placeimg.com/640/480/any?r=0.4303855365201734',
+        'https://placeimg.com/640/480/any?r=0.37952742592490796',
+        'https://placeimg.com/640/480/any?r=0.6533577033687712',
+      ],
+    };
+
+    const productUpdated = {
+      id: 1,
+      title: 'Gorgeous Rubber Shoes',
+      price: 800,
+      description:
+        'The Nagasaki Lander is the trademarked name of several series of Nagasaki sport bikes, that started with the 1984 ABC800J',
+      category: {
+        id: 4,
+        name: 'Toys',
+        typeImg: 'any',
+      },
+      images: [
+        'https://placeimg.com/640/480/any?r=0.4303855365201734',
+        'https://placeimg.com/640/480/any?r=0.37952742592490796',
+        'https://placeimg.com/640/480/any?r=0.6533577033687712',
+      ],
+      categoryId: 4,
+    };
+
+    jest.spyOn(service, 'update').mockImplementation(() => productUpdated);
+    const response = controller.update(productUpdated.id, productToUpdate);
+
+    expect(response).toBe(productUpdated);
+    expect(service.update).toBeCalled();
+    expect(service.update).toHaveBeenCalledTimes(1);
+  });
 });
