@@ -56,13 +56,23 @@ export class ProductsService {
     if (this.products.length === 0) {
       this.generateProducts();
     }
-    if (params?.limit > 0 && params?.offset >= 0) {
-      const end = params.offset + params?.limit;
-      return this.products.slice(params.offset, end);
+    let productsWithParams = [...this.products];
+    const { limit, offset, query } = params;
+    if (query) {
+      const expression = new RegExp(query, 'i');
+      productsWithParams = productsWithParams.filter((product) => {
+        if (expression.test(product.title)) {
+          return product;
+        }
+      });
     }
-    return this.products;
-  }
 
+    if (limit > 0 && offset >= 0) {
+      const end = offset + limit;
+      productsWithParams = productsWithParams.slice(offset, end);
+    }
+    return productsWithParams;
+  }
   getProduct(id: number) {
     const product = this.products.find((item) => item.id === id);
     if (!product) {

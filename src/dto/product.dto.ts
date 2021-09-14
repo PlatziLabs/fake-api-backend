@@ -47,4 +47,8 @@ export class FilterProductsDto {
   @IsNumber()
   @IsOptional()
   offset: number;
+
+  @IsString()
+  @IsNotEmpty()
+  query: string;
 }
