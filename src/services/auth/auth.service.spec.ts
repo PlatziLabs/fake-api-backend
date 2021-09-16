@@ -8,6 +8,7 @@ import { Role } from '../../models/user.model';
 describe('AuthService', () => {
   let service: AuthService;
   let jwtService: JwtService;
+  let usersService: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,7 +22,8 @@ describe('AuthService', () => {
     }).compile();
 
     service = module.get<AuthService>(AuthService);
-    jwtService = new JwtService({ secretOrPrivateKey: 'my-cat' });
+    jwtService = module.get<JwtService>(JwtService);
+    usersService = module.get<UsersService>(UsersService);
   });
 
   it('should be defined', () => {
@@ -32,11 +34,12 @@ describe('AuthService', () => {
     const user = { email: 'rivera.armando997@gmail', id: 31 };
     const userCalled = { email: 'rivera.armando997@gmail', sub: 31 };
 
-    const jwtRef = jest.spyOn(service['jwtService'], 'sign');
+    const responseToken = 'my-fake-token';
+    jest.spyOn(jwtService, 'sign').mockImplementation(() => responseToken);
     const data = service.generateJWT(user);
 
-    expect(jwtRef).toBeCalledWith(userCalled);
-    expect(data).toBeDefined();
+    expect(jwtService.sign).toBeCalledWith(userCalled);
+    expect(data.access_token).toBeDefined();
   });
 
   it('should validate user', () => {
@@ -49,7 +52,7 @@ describe('AuthService', () => {
       password,
       role: Role.admin,
     };
-    jest.spyOn(service['usersService'], 'findByEmail').mockReturnValue(user);
+    jest.spyOn(usersService, 'findByEmail').mockReturnValue(user);
     const dataExpected = { ...user };
     delete dataExpected.password;
     const data = service.validateUser(userName, password);
@@ -60,7 +63,7 @@ describe('AuthService', () => {
   it('shouldnt validate user', () => {
     const userName = 'Armando';
     const password = '123456';
-    jest.spyOn(service['usersService'], 'findByEmail').mockReturnValue(null);
+    jest.spyOn(usersService, 'findByEmail').mockReturnValue(null);
     const data = service.validateUser(userName, password);
 
     expect(data).toBeNull();
