@@ -13,13 +13,13 @@ export class AuthService {
   validateUser(username: string, pass: string) {
     const user = this.usersService.findByEmail(username);
     if (user && user.password === pass) {
-      const { password, ...result } = user;
+      const { ...result } = user;
       return result;
     }
     return null;
   }
 
-  generateJWT(user: any) {
+  generateJWT(user) {
     const payload = { email: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
