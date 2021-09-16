@@ -56,11 +56,28 @@ export class ProductsService {
     if (this.products.length === 0) {
       this.generateProducts();
     }
-    if (params?.limit > 0 && params?.offset >= 0) {
-      const end = params.offset + params?.limit;
-      return this.products.slice(params.offset, end);
+
+    let productsWithParams = [...this.products];
+    const { price } = params;
+    if (price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price === price,
+      );
     }
-    return this.products;
+
+    const { price_min, price_max } = params;
+    if (price_min && price_max && !price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price >= price_min && item.price <= price_max,
+      );
+    }
+
+    const { limit, offset } = params;
+    if (limit > 0 && offset >= 0) {
+      const end = offset + limit;
+      productsWithParams = productsWithParams.slice(offset, end);
+    }
+    return productsWithParams;
   }
 
   getProduct(id: number) {
