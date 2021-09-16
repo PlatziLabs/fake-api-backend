@@ -8,16 +8,14 @@ import { USER_MOCK } from '../../../test/mocks/users/user.mock';
 
 describe('UsersController', () => {
   let controller: UsersController;
-  let userService: UsersService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [UsersService]
+      providers: [UsersService],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
-    userService = new UsersService();
   });
 
   it('should be defined', () => {
@@ -45,5 +43,4 @@ describe('UsersController', () => {
     expect(data.password).toEqual(expectedData.password);
     expect(data.role).toEqual(expectedData.role);
   });
-
 });
