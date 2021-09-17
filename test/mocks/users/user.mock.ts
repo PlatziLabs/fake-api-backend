@@ -5,5 +5,5 @@ export const USER_MOCK: User = {
   name: 'Armando',
   password: '1234',
   id: 3,
-  role: Role.customer
-}
+  role: Role.customer,
+};
