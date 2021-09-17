@@ -3,7 +3,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from '../../services/auth/auth.service';
 import { UsersService } from '../../services/users/users.service';
 import { JwtModule } from '@nestjs/jwt';
-import { Role } from '../../models/user.model';
+import { Role, User } from '../../models/user.model';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -47,7 +47,7 @@ describe('AuthController', () => {
   });
 
   it('should return the profile', () => {
-    const user = {
+    const user: User = {
       id: 1,
       email: 'mock@mail.com',
       password: 'thePassword',

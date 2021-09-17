@@ -4,6 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { UsersService } from '../../services/users/users.service';
+import { Payload } from 'src/models/user.model';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -22,7 +23,7 @@ export class AuthController {
   @UseGuards(AuthGuard('jwt'))
   @Get('profile')
   profile(@Req() req) {
-    const user = req.user;
+    const user = req.user as Payload;
     console.log('token', user);
     return this.usersService.getUser(user?.userId);
   }
