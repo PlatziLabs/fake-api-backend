@@ -41,8 +41,8 @@
     "swagger-ui-express": "4.1.6"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cli": "13.1.0",
+    "@commitlint/config-conventional": "13.1.0",
     "@nestjs/cli": "8.0.0",
     "@nestjs/schematics": "8.0.0",
     "@nestjs/testing": "8.0.0",
@@ -56,8 +56,8 @@
     "@types/supertest": "2.0.11",
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
+    "commitizen": "4.2.4",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "7.30.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
