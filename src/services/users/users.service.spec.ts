@@ -89,6 +89,13 @@ describe('UsersService', () => {
 
         expect(user.email).toBe(email);
       });
+
+      it('Should return the user not founded by email', () => {
+        const email = 'usernotfound@mail.com';
+        const userNotFounded = service.findByEmail(email);
+
+        expect(userNotFounded).toBe(undefined);
+      });
     });
 
     describe('Test service getUser', () => {
@@ -97,6 +104,13 @@ describe('UsersService', () => {
         const user = service.getUser(id);
 
         expect(user.id).toBe(id);
+      });
+
+      it('Should return the user not founded by id', () => {
+        const id = 0;
+        const user = service.getUser(id);
+
+        expect(user).toBe(undefined);
       });
     });
 
