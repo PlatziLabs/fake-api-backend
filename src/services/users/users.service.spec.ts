@@ -52,36 +52,68 @@ describe('UsersService', () => {
     });
   });
 
-  // describe('Test service create', () => {
-  //   it('Should return the product created', () => {
-  //     const userDto = new CreateUserDto();
-  //   });
-  // });
+  describe('Test service create', () => {
+    it('Should return the user created', () => {
+      const userDto = new CreateUserDto();
+      userDto.email = 'admin@mail.com';
+      userDto.password = 'admin123';
+      userDto.name = 'mockUser';
+      userDto.role = 'customer';
 
-  describe('Test service findByEmail', () => {
-    it('Should return the user searched by email', () => {
-      const email = 'john@mail.com';
-      const user = service.findByEmail(email);
+      const userCreated = service.create(userDto);
+      const users = service.getAll();
+      const lastUser = users[users.length - 1];
 
-      expect(user.email).toBe(email);
+      expect(userCreated).toBe(lastUser);
     });
-  });
 
-  describe('Test service getUser', () => {
-    it('Should return the user searched by id', () => {
-      const id = 1;
-      const user = service.getUser(id);
+    it('Should return the user created with a different role', () => {
+      const userDto = new CreateUserDto();
+      userDto.email = 'admin@mail.com';
+      userDto.password = 'admin123';
+      userDto.name = 'mockUser';
+      userDto.role = 'seller';
 
-      expect(user.id).toBe(id);
+      const userCreated = service.create(userDto);
+      const users = service.getAll();
+      const lastUser = users[users.length - 1];
+
+      expect(userCreated).toBe(lastUser);
+      expect(lastUser.role).toBe('customer');
     });
-  });
 
-  describe('Test service getRole', () => {
-    it('Should return the role of the user', () => {
-      const role = 'customer';
-      const responseRole = service.getRole(role);
+    describe('Test service findByEmail', () => {
+      it('Should return the user searched by email', () => {
+        const email = 'john@mail.com';
+        const user = service.findByEmail(email);
 
-      expect(responseRole).toBe(role);
+        expect(user.email).toBe(email);
+      });
+    });
+
+    describe('Test service getUser', () => {
+      it('Should return the user searched by id', () => {
+        const id = 1;
+        const user = service.getUser(id);
+
+        expect(user.id).toBe(id);
+      });
+    });
+
+    describe('Test service getRole', () => {
+      it('Should return the role customer of the user', () => {
+        const role = 'customer';
+        const responseRole = service.getRole(role);
+
+        expect(responseRole).toBe(role);
+      });
+
+      it('Should return the role admin of the user', () => {
+        const role = 'admin';
+        const responseRole = service.getRole(role);
+
+        expect(responseRole).toBe(role);
+      });
     });
   });
 });
