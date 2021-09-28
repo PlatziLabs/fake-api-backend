@@ -8,14 +8,28 @@ jobs:
   linter:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout and yarn
-        uses: eriksape/actions/packages/node-12-setup@main
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        shell: bash
+        run: npm ci
       - name: Run Lint
         run: npm run lint
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout and yarn
-        uses: eriksape/actions/packages/node-12-setup@main
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        shell: bash
+        run: npm ci
       - name: Run tests
         run: npm run test:cov
