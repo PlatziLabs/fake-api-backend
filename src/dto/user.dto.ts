@@ -3,12 +3,9 @@ import {
   IsNotEmpty,
   IsAlphanumeric,
   IsEmail,
-  IsEnum,
   IsOptional,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-
-import { Role } from '../models/user.model';
 
 export class CreateUserDto {
   @ApiProperty()
