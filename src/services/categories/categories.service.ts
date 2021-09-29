@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { UpdateCategoryDto } from 'src/dto/category.dto';
 
 import { Category } from '../../models/category.model';
 
@@ -42,5 +43,17 @@ export class CategoriesService {
       return category;
     }
     return null;
+  }
+
+  updateCategory(id: number, changes: UpdateCategoryDto) {
+    const categoryIndex = this.categories.findIndex((item) => item.id === id);
+    if (categoryIndex === -1) {
+      throw new NotFoundException('Category not found');
+    }
+    this.categories[categoryIndex] = {
+      ...this.categories[categoryIndex],
+      ...changes,
+    };
+    return this.categories[categoryIndex];
   }
 }
