@@ -61,11 +61,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     const filter: FilterProductsDto = {
       limit: 1,
       offset: 0,
-      price: undefined,
-      price_max: undefined,
-      price_min: undefined,
-      query: undefined,
-    };
+    } as unknown as FilterProductsDto;
     const result = [
       {
         id: 1,
