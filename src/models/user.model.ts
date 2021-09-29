@@ -10,3 +10,10 @@ export interface User {
   name: string;
   role: Role;
 }
+
+export interface Payload {
+  sub: string;
+  username?: string;
+  email?: string;
+  userId?: number;
+}

@@ -56,8 +56,23 @@ export class ProductsService {
     if (this.products.length === 0) {
       this.generateProducts();
     }
+
     let productsWithParams = [...this.products];
-    const { limit, offset, query } = params;
+    const { price } = params;
+    if (price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price === price,
+      );
+    }
+
+    const { price_min, price_max } = params;
+    if (price_min && price_max && !price) {
+      productsWithParams = productsWithParams.filter(
+        (item) => item.price >= price_min && item.price <= price_max,
+      );
+    }
+
+    const { query } = params;
     if (query) {
       const expression = new RegExp(query, 'i');
       productsWithParams = productsWithParams.filter((product) => {
@@ -66,13 +81,14 @@ export class ProductsService {
         }
       });
     }
-
+    const { limit, offset } = params;
     if (limit > 0 && offset >= 0) {
       const end = offset + limit;
       productsWithParams = productsWithParams.slice(offset, end);
     }
     return productsWithParams;
   }
+
   getProduct(id: number) {
     const product = this.products.find((item) => item.id === id);
     if (!product) {
