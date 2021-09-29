@@ -5,7 +5,7 @@ import { CreateUserDto } from './../../dto/user.dto';
 
 @Injectable()
 export class UsersService {
-  private currentId = 2;
+  private currentId = 3;
   private users: User[] = [
     {
       id: 1,
