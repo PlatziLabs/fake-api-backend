@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { JwtModule } from '@nestjs/jwt';
+import { Request } from 'express';
 import { AuthController } from './auth.controller';
 import { AuthService } from '../../services/auth/auth.service';
 import { UsersService } from '../../services/users/users.service';
-import { JwtModule } from '@nestjs/jwt';
 import { Role, User } from '../../models/user.model';
-import { Request } from 'express';
 
 describe('AuthController', () => {
   let controller: AuthController;
