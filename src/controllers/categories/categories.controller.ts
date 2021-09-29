@@ -1,8 +1,16 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { CategoriesService } from './../../services/categories/categories.service';
-import { ProductsService } from './../../services/products/products.service';
+import { CategoriesService } from '../../services/categories/categories.service';
+import { ProductsService } from '../../services/products/products.service';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { CreateCategorytDto } from '../../dto/category.dto';
 

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { AppModule } from './../src/app.module';
+import { AppModule } from '../src/app.module';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -16,10 +16,7 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET) 404', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .send()
-      .expect(404)
+    return request(app.getHttpServer()).get('/').send().expect(404);
   });
   it('/api/categories (GET) 200', async (): Promise<void> => {
     const response = await request(app.getHttpServer())

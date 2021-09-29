@@ -4,6 +4,19 @@ export interface IDataSetModel {
   id: number;
 }
 
+export interface IDataSetModel {
+  id: number;
+}
+
+interface IDataQueryObject {
+  min?: number;
+  max?: number;
+}
+
+export interface IDataQuery {
+  [key: string]: IDataQueryObject;
+}
+
 @Injectable()
 export class DataSetService<T> {
   private id = 0;
@@ -22,10 +35,15 @@ export class DataSetService<T> {
   }
 
   find(
-    search: Partial<IDataSetModel & T & any> | string | string[] | Function,
+    search:
+      | Partial<IDataSetModel & T>
+      | string
+      | string[]
+      | Function
+      | IDataQuery,
   ): DataSetService<T> {
     const DataSet = new DataSetService<T>();
-    let filtered: Array<IDataSetModel & T> = [];
+    let filtered: Array<IDataSetModel & T>;
 
     if (typeof search === 'string') {
       filtered = this.dataSet.filter((data) => data[search]);
