@@ -72,6 +72,15 @@ export class ProductsService {
       );
     }
 
+    const { query } = params;
+    if (query) {
+      const expression = new RegExp(query, 'i');
+      productsWithParams = productsWithParams.filter((product) => {
+        if (expression.test(product.title)) {
+          return product;
+        }
+      });
+    }
     const { limit, offset } = params;
     if (limit > 0 && offset >= 0) {
       const end = offset + limit;
