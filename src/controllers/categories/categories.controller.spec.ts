@@ -64,6 +64,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
       price: undefined,
       price_max: undefined,
       price_min: undefined,
+      query: undefined,
     };
     const result = [
       {
