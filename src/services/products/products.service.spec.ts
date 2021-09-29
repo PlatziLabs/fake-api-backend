@@ -80,4 +80,16 @@ describe('ProductsService', () => {
       expect(productsFiltered).toStrictEqual(result);
     });
   });
+
+  it('should be return array with the products that contains the keyword input', () => {
+    const filterAllProduct = new FilterProductsDto();
+    const allProduct = service.getAll(filterAllProduct);
+    const numRandom = Math.floor(Math.random() * (allProduct.length + 1));
+    const productRandom = allProduct[numRandom];
+    const filterProductByTitle = new FilterProductsDto();
+    filterProductByTitle.query = productRandom.title;
+    const productFilterByName = service.getAll(filterProductByTitle);
+
+    expect(productFilterByName.length).toBeGreaterThan(0);
+  });
 });
