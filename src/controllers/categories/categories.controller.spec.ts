@@ -3,6 +3,7 @@ import { CategoriesController } from './categories.controller';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { ProductsService } from '../../services/products/products.service';
 import { DataSetModule } from '@app/data-set';
+import { FilterProductsDto } from '../../dto/product.dto';
 
 describe(`Inspect ${CategoriesController.name} class`, () => {
   let controller: CategoriesController;
@@ -57,7 +58,13 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
   it(`Get a category with its products`, () => {
-    const filter = { limit: 1, offset: 0 };
+    const filter: FilterProductsDto = {
+      limit: 1,
+      offset: 0,
+      price: undefined,
+      price_max: undefined,
+      price_min: undefined,
+    };
     const result = [
       {
         id: 1,
