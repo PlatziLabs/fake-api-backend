@@ -2,12 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsService } from './products.service';
 import { CategoriesService } from '../categories/categories.service';
 import { FilterProductsDto } from '../../dto/product.dto';
+import { DataSetModule } from '@app/data-set';
 
 describe('ProductsService', () => {
   let service: ProductsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DataSetModule],
       providers: [ProductsService, CategoriesService],
     }).compile();
 

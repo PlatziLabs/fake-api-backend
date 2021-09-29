@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products/products.service';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { CreateProductDto } from '../../dto/product.dto';
+import { DataSetModule } from '@app/data-set';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
@@ -11,6 +12,7 @@ describe('ProductsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DataSetModule],
       controllers: [ProductsController],
       providers: [ProductsService, CategoriesService],
     }).compile();
