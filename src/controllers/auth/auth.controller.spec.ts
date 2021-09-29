@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { UsersService } from '../../services/users/users.service';
 import { JwtModule } from '@nestjs/jwt';
 import { Role, User } from '../../models/user.model';
+import { Request } from 'express';
 
 describe('AuthController', () => {
   let controller: AuthController;
@@ -33,7 +34,7 @@ describe('AuthController', () => {
 
   it('should login a user', () => {
     const user = { email: 'mock@email.com', id: 1 };
-    const request = { user };
+    const request = { user } as unknown as Request;
     const returnValue = { access_token: 'mockJsonWebToken' };
     const mock = jest
       .spyOn(authService, 'generateJWT')
@@ -54,7 +55,7 @@ describe('AuthController', () => {
       name: 'theName',
       role: Role.customer,
     };
-    const request = { user: { userId: user.id } };
+    const request = { user: { userId: user.id } } as unknown as Request;
     const mock = jest.spyOn(usersService, 'getUser').mockReturnValueOnce(user);
     const mockInput = [user.id];
 
@@ -65,7 +66,7 @@ describe('AuthController', () => {
   });
 
   it('should not return the profile', () => {
-    const request = {};
+    const request = {} as unknown as Request;
     const mock = jest
       .spyOn(usersService, 'getUser')
       .mockReturnValueOnce(undefined);
