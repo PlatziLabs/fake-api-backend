@@ -25,7 +25,6 @@ export class AuthController {
   @Get('profile')
   profile(@Req() req: Request) {
     const user = req.user as Payload;
-    console.log('token', user);
     return this.usersService.getUser(user?.userId);
   }
 }
