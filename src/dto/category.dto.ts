@@ -6,11 +6,6 @@ export class CreateCategoryDto {
   @IsString()
   @IsNotEmpty()
   name: string;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  image: string;
 }
 
 export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}
