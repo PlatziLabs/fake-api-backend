@@ -13,7 +13,7 @@ export class AuthService {
   validateUser(username: string, pass: string) {
     const user = this.usersService.findByEmail(username);
     if (user && user.password === pass) {
-      const { password, ...result } = user;
+      const { ...result } = user;
       return result;
     }
     return null;
