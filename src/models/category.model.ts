@@ -1,5 +1,4 @@
-export interface Category {
-  id: number;
-  name: string;
-  image: string;
-}
+import { CreateCategorytDto } from '../dto/category.dto';
+import { IDataSetModel } from '@app/data-set';
+
+export interface Category extends CreateCategorytDto, IDataSetModel {}

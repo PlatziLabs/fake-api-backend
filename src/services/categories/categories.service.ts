@@ -1,46 +1,53 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { Category } from '../../models/category.model';
+import { CreateCategorytDto } from '../../dto/category.dto';
+import { DataSetService } from '@app/data-set';
 
 @Injectable()
 export class CategoriesService {
-  private categories: Category[] = [
-    {
-      id: 1,
-      name: 'Clothes',
-      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
-    },
-    {
-      id: 2,
-      name: 'Electronics',
-      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
-    },
-    {
-      id: 3,
-      name: 'Furniture',
-      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
-    },
-    {
-      id: 4,
-      name: 'Toys',
-      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
-    },
-    {
-      id: 5,
-      name: 'Others',
-      image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
-    },
-  ];
+  constructor(private categories: DataSetService<CreateCategorytDto>) {
+    categories.fill([
+      {
+        id: 1,
+        name: 'Clothes',
+        typeImg: 'people',
+      },
+      {
+        id: 2,
+        name: 'Electronics',
+        typeImg: 'tech',
+      },
+      {
+        id: 3,
+        name: 'Furniture',
+        typeImg: 'arch',
+      },
+      {
+        id: 4,
+        name: 'Toys',
+        typeImg: 'any',
+      },
+      {
+        id: 5,
+        name: 'Others',
+        typeImg: 'animals',
+      },
+    ]);
+  }
 
   getAll() {
-    return this.categories;
+    return this.categories.get();
   }
 
   getCategory(id: number) {
-    const category = this.categories.find((item) => item.id === id);
+    const category = this.categories.find({ id }).first();
     if (category) {
       return category;
     }
-    return null;
+    throw new NotFoundException();
+  }
+
+  create(body: CreateCategorytDto) {
+    return this.categories.create(body);
   }
 }

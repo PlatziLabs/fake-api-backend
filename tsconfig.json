@@ -11,6 +11,14 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@app/data-set": [
+        "libs/data-set/src"
+      ],
+      "@app/data-set/*": [
+        "libs/data-set/src/*"
+      ]
+    }
   }
 }

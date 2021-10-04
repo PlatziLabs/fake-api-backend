@@ -15,6 +15,7 @@ import { UsersService } from './services/users/users.service';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { FilesController } from './controllers/files/files.controller';
+import { DataSetModule } from '@app/data-set';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { FilesController } from './controllers/files/files.controller';
     MulterModule.register({
       dest: './upload',
     }),
+    DataSetModule,
   ],
   controllers: [
     ProductsController,
