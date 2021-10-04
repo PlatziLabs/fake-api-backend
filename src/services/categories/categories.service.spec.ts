@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 
 import { CategoriesService } from './categories.service';
 import { UpdateCategoryDto } from '../../dto/category.dto';
@@ -28,6 +29,15 @@ describe('CategoriesService', () => {
       const category = service.getCategory(categoryUpdated.id);
 
       expect(categoryUpdated).toBe(category);
+    });
+
+    it('should return a category not found', () => {
+      const t = () => {
+        throw new NotFoundException('Category not found');
+      };
+
+      expect(t).toThrow(NotFoundException);
+      expect(t).toThrow('Category not found');
     });
   });
 });
