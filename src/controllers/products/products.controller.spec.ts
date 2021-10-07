@@ -3,7 +3,7 @@ import { ProductsController } from './products.controller';
 import { ProductsService } from '../../services/products/products.service';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { FilterProductsDto } from '../../dto/product.dto';
-import { CreateProductDto } from '../../dto/product.dto';
+import { DataSetModule } from '@app/data-set';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
@@ -11,6 +11,7 @@ describe('ProductsController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [DataSetModule],
       controllers: [ProductsController],
       providers: [ProductsService, CategoriesService],
     }).compile();
@@ -35,7 +36,7 @@ describe('ProductsController', () => {
         category: {
           id: 4,
           name: 'Toys',
-          image: 'https://placeimg.com/640/480/any',
+          typeImg: 'https://placeimg.com/640/480/any',
         },
         images: [
           'https://placeimg.com/640/480/any?r=0.7242884047070584',
@@ -64,7 +65,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        image: 'https://placeimg.com/640/480/any',
+        typeImg: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -82,8 +83,7 @@ describe('ProductsController', () => {
   });
 
   it(`call ${ProductsController.name}.create()`, () => {
-    let mockProductToCreate = new CreateProductDto();
-    mockProductToCreate = {
+    const mockProductToCreate = {
       title: 'Gorgeous Rubber Shoes',
       price: 803,
       description:
@@ -105,7 +105,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        image: 'https://placeimg.com/640/480/any',
+        typeImg: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -145,7 +145,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        image: 'https://placeimg.com/640/480/any',
+        typeImg: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',

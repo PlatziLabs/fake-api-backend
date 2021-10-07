@@ -1,18 +1,20 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
   ParseIntPipe,
   Put,
   Query,
-  Body,
+  Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { CategoriesService } from './../../services/categories/categories.service';
-import { ProductsService } from './../../services/products/products.service';
+import { CategoriesService } from '../../services/categories/categories.service';
+import { ProductsService } from '../../services/products/products.service';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { UpdateCategoryDto } from '../../dto/category.dto';
+import { CreateCategoryDto } from '../../dto/category.dto';
 
 @ApiTags('categories')
 @Controller('categories')
@@ -25,6 +27,11 @@ export class CategoriesController {
   @Get()
   getAll() {
     return this.categoriesService.getAll();
+  }
+
+  @Post()
+  create(@Body() category: CreateCategoryDto) {
+    return this.categoriesService.create(category);
   }
 
   @Get(':id/products')
