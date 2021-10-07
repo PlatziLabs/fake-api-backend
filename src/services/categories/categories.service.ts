@@ -53,14 +53,12 @@ export class CategoriesService {
   }
 
   updateCategory(id: number, changes: UpdateCategoryDto) {
-    const categoryIndex = this.categories.findIndex((item) => item.id === id);
-    if (categoryIndex === -1) {
+    const category = this.categories.update(id, changes);
+
+    if (!category) {
       throw new NotFoundException('Category not found');
     }
-    this.categories[categoryIndex] = {
-      ...this.categories[categoryIndex],
-      ...changes,
-    };
-    return this.categories[categoryIndex];
+
+    return category;
   }
 }
