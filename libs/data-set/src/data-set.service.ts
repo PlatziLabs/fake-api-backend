@@ -34,7 +34,7 @@ export class DataSetService<T> {
     return newItem;
   }
 
-  update(id: number, updateDataSet: T): IDataSetModel & T {
+  update(id: number, updateDataSet: Partial<T>): IDataSetModel & T {
     const dataSetIndex = this.dataSet.findIndex((data) => data.id === id);
 
     if (dataSetIndex < 0) return null;
