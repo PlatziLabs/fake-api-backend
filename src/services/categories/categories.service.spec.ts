@@ -34,7 +34,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
   it(`get a category by id`, () => {
     const fixture = { id: 10, name: 'name', typeImg: 'typeImg' };
     const mock = jest.spyOn(dataSet, 'find').mockImplementationOnce(() => {
-      const dssFixture = new DataSetService<CreateCategorytDto>();
+      const dssFixture = new DataSetService<CreateCategoryDto>();
       dssFixture.fill([fixture], 10);
       return dssFixture;
     });
