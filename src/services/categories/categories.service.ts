@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { UpdateCategoryDto } from 'src/dto/category.dto';
 
-import { CreateCategorytDto } from '../../dto/category.dto';
+import { CreateCategoryDto } from '../../dto/category.dto';
 import { DataSetService } from '@app/data-set';
 
 @Injectable()
 export class CategoriesService {
-  constructor(private categories: DataSetService<CreateCategorytDto>) {
+  constructor(private categories: DataSetService<CreateCategoryDto>) {
     categories.fill([
       {
         id: 1,
@@ -47,7 +48,17 @@ export class CategoriesService {
     throw new NotFoundException();
   }
 
-  create(body: CreateCategorytDto) {
+  create(body: CreateCategoryDto) {
     return this.categories.create(body);
+  }
+
+  updateCategory(id: number, changes: UpdateCategoryDto) {
+    const category = this.categories.update(id, changes);
+
+    if (!category) {
+      throw new NotFoundException('Category not found');
+    }
+
+    return category;
   }
 }

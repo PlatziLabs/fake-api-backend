@@ -1,12 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoriesService } from './categories.service';
-import { DataSetModule, DataSetService } from '@app/data-set';
-import { CreateCategorytDto } from '../../dto/category.dto';
 import { NotFoundException } from '@nestjs/common';
+
+import { CategoriesService } from './categories.service';
+import { UpdateCategoryDto } from '../../dto/category.dto';
+import { DataSetModule, DataSetService } from '@app/data-set';
+import { CreateCategoryDto } from '../../dto/category.dto';
 
 describe(`Inspect ${CategoriesService.name} class`, () => {
   let service: CategoriesService;
-  let dataSet: DataSetService<CreateCategorytDto>;
+  let dataSet: DataSetService<CreateCategoryDto>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -14,7 +16,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
       providers: [CategoriesService],
     }).compile();
 
-    dataSet = module.get<DataSetService<CreateCategorytDto>>(DataSetService);
+    dataSet = module.get<DataSetService<CreateCategoryDto>>(DataSetService);
     service = module.get<CategoriesService>(CategoriesService);
   });
 
@@ -32,7 +34,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
   it(`get a category by id`, () => {
     const fixture = { id: 10, name: 'name', typeImg: 'typeImg' };
     const mock = jest.spyOn(dataSet, 'find').mockImplementationOnce(() => {
-      const dssFixture = new DataSetService<CreateCategorytDto>();
+      const dssFixture = new DataSetService<CreateCategoryDto>();
       dssFixture.fill([fixture], 10);
       return dssFixture;
     });
@@ -52,5 +54,27 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     const actual = service.create(fixture);
     expect(actual).toStrictEqual({ id: 0, ...fixture });
     expect(mock).toHaveBeenCalledWith(fixture);
+  });
+
+  describe('Test the service to update a category', () => {
+    it('should return a category updated', () => {
+      const categoryId = 1;
+      const categoryDto = new UpdateCategoryDto();
+      categoryDto.name = 'mockName';
+
+      const categoryUpdated = service.updateCategory(categoryId, categoryDto);
+      const category = service.getCategory(categoryUpdated.id);
+
+      expect(categoryUpdated).toBe(category);
+    });
+
+    it('should return a category not found', () => {
+      const t = () => {
+        throw new NotFoundException('Category not found');
+      };
+
+      expect(t).toThrow(NotFoundException);
+      expect(t).toThrow('Category not found');
+    });
   });
 });

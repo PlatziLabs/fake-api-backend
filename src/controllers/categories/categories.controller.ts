@@ -4,15 +4,17 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  Post,
+  Put,
   Query,
+  Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { CategoriesService } from '../../services/categories/categories.service';
 import { ProductsService } from '../../services/products/products.service';
 import { FilterProductsDto } from '../../dto/product.dto';
-import { CreateCategorytDto } from '../../dto/category.dto';
+import { UpdateCategoryDto } from '../../dto/category.dto';
+import { CreateCategoryDto } from '../../dto/category.dto';
 
 @ApiTags('categories')
 @Controller('categories')
@@ -28,7 +30,7 @@ export class CategoriesController {
   }
 
   @Post()
-  create(@Body() category: CreateCategorytDto) {
+  create(@Body() category: CreateCategoryDto) {
     return this.categoriesService.create(category);
   }
 
@@ -38,5 +40,13 @@ export class CategoriesController {
     @Query() params: FilterProductsDto,
   ) {
     return this.productsService.byCategory(id, params);
+  }
+
+  @Put(':id')
+  updateCategory(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() changes: UpdateCategoryDto,
+  ) {
+    return this.categoriesService.updateCategory(id, changes);
   }
 }
