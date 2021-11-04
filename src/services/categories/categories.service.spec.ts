@@ -4,11 +4,11 @@ import { NotFoundException } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { UpdateCategoryDto } from '../../dto/category.dto';
 import { DataSetModule, DataSetService } from '@app/data-set';
-import { CreateCategoryDto } from '../../dto/category.dto';
+import { Category } from '../../models/category.model';
 
 describe(`Inspect ${CategoriesService.name} class`, () => {
   let service: CategoriesService;
-  let dataSet: DataSetService<CreateCategoryDto>;
+  let dataSet: DataSetService<Category>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,7 +16,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
       providers: [CategoriesService],
     }).compile();
 
-    dataSet = module.get<DataSetService<CreateCategoryDto>>(DataSetService);
+    dataSet = module.get<DataSetService<Category>>(DataSetService);
     service = module.get<CategoriesService>(CategoriesService);
   });
 
@@ -24,7 +24,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     expect(service).toBeDefined();
   });
   it(`get all categories`, () => {
-    const fixture = [{ id: 10, name: 'name', typeImg: 'typeImg' }];
+    const fixture = [{ id: 10, name: 'name', image: 'newImage' }];
     const mock = jest.spyOn(dataSet, 'get').mockReturnValueOnce(fixture);
 
     const actual = service.getAll();
@@ -32,9 +32,9 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     expect(mock).toHaveBeenCalledWith();
   });
   it(`get a category by id`, () => {
-    const fixture = { id: 10, name: 'name', typeImg: 'typeImg' };
+    const fixture = { id: 10, name: 'name', image: 'newImage' };
     const mock = jest.spyOn(dataSet, 'find').mockImplementationOnce(() => {
-      const dssFixture = new DataSetService<CreateCategoryDto>();
+      const dssFixture = new DataSetService<Category>();
       dssFixture.fill([fixture], 10);
       return dssFixture;
     });
@@ -47,7 +47,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     expect(() => service.getCategory(-10)).toThrow(NotFoundException);
   });
   it(`create a category`, () => {
-    const fixture = { name: 'Hello World', typeImg: 'TheWorld' };
+    const fixture = { name: 'Hello World', image: 'newImage' };
     const mock = jest
       .spyOn(dataSet, 'create')
       .mockReturnValueOnce({ id: 0, ...fixture });

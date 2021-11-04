@@ -36,7 +36,7 @@ describe('ProductsController', () => {
         category: {
           id: 4,
           name: 'Toys',
-          typeImg: 'https://placeimg.com/640/480/any',
+          image: 'https://placeimg.com/640/480/any',
         },
         images: [
           'https://placeimg.com/640/480/any?r=0.7242884047070584',
@@ -65,7 +65,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        typeImg: 'https://placeimg.com/640/480/any',
+        image: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -105,7 +105,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        typeImg: 'https://placeimg.com/640/480/any',
+        image: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -145,7 +145,7 @@ describe('ProductsController', () => {
       category: {
         id: 4,
         name: 'Toys',
-        typeImg: 'https://placeimg.com/640/480/any',
+        image: 'https://placeimg.com/640/480/any',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',

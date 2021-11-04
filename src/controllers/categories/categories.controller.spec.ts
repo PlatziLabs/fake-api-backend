@@ -26,7 +26,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(controller).toBeDefined();
   });
   it(`Get all categories`, () => {
-    const result = [{ id: 1, name: 'Laptops', typeImg: 'HP one station' }];
+    const result = [{ id: 1, name: 'Laptops', image: 'HP one station' }];
     const mock = jest
       .spyOn(categoriesService, 'getAll')
       .mockReturnValueOnce(result);
@@ -36,7 +36,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
   it(`Create a new category`, () => {
-    const body = { name: 'bears', typeImg: 'Yogi the bear' };
+    const body = { name: 'bears', image: 'Yogi the bear' };
     const result = Object.assign({}, body, { id: 6 });
     const mock = jest
       .spyOn(categoriesService, 'create')
@@ -47,7 +47,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(mock).toHaveBeenCalledWith(...mockInput);
   });
   it(`Fail when create a new category`, () => {
-    const body = { name: 'bears', typeImg: 'Yogi the bear' };
+    const body = { name: 'bears', image: 'Yogi the bear' };
     const mock = jest
       .spyOn(categoriesService, 'create')
       .mockImplementationOnce(() => {
@@ -71,7 +71,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
         category: {
           id: 1,
           name: 'Others',
-          typeImg: 'animals',
+          image: 'animals',
         },
         images: ['image1', 'image2', 'image3'],
       },
