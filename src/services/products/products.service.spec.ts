@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 
 import { ProductsService } from './products.service';
 import { CategoriesService } from '../categories/categories.service';
@@ -79,17 +80,36 @@ describe('ProductsService', () => {
 
       expect(productsFiltered).toStrictEqual(result);
     });
+
+    it('should be return array with the products that contains the keyword input', () => {
+      const filterAllProduct = new FilterProductsDto();
+      const allProduct = service.getAll(filterAllProduct);
+      const numRandom = Math.floor(Math.random() * (allProduct.length + 1));
+      const productRandom = allProduct[numRandom];
+      const filterProductByTitle = new FilterProductsDto();
+      filterProductByTitle.query = productRandom.title;
+      const productFilterByName = service.getAll(filterProductByTitle);
+
+      expect(productFilterByName.length).toBeGreaterThan(0);
+    });
   });
 
-  it('should be return array with the products that contains the keyword input', () => {
-    const filterAllProduct = new FilterProductsDto();
-    const allProduct = service.getAll(filterAllProduct);
-    const numRandom = Math.floor(Math.random() * (allProduct.length + 1));
-    const productRandom = allProduct[numRandom];
-    const filterProductByTitle = new FilterProductsDto();
-    filterProductByTitle.query = productRandom.title;
-    const productFilterByName = service.getAll(filterProductByTitle);
+  describe('Test for getProduct method', () => {
+    it('should return a product', () => {
+      const id = 1;
+      const product = service.getProduct(id);
+      expect(product.id).toBe(id);
+    });
 
-    expect(productFilterByName.length).toBeGreaterThan(0);
+    it('should return an error "NotFoundException" when the product does not exist', (done) => {
+      try {
+        const id = 1111;
+        service.getProduct(id);
+        done();
+      } catch (error) {
+        expect(error).toBeInstanceOf(NotFoundException);
+        done();
+      }
+    });
   });
 });
