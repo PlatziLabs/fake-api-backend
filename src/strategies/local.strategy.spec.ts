@@ -33,6 +33,7 @@ describe('Local Strategy', () => {
       id: 1,
       email: 'john@mail.com',
       name: 'Jhon',
+      password: 'changeme',
       role: Role.customer,
     };
 

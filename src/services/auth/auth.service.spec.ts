@@ -54,7 +54,6 @@ describe('AuthService', () => {
     };
     jest.spyOn(usersService, 'findByEmail').mockReturnValue(user);
     const dataExpected = { ...user };
-    delete dataExpected.password;
     const data = service.validateUser(userName, password);
 
     expect(data).toEqual(dataExpected);
