@@ -11,8 +11,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  validateUser(username: string, pass: string) {
-    const user = this.usersService.findByEmail(username);
+  validateUser(email: string, pass: string) {
+    const user = this.usersService.findByEmail(email);
     if (user && user.password === pass) {
       delete user.password;
       const { ...result } = user;
