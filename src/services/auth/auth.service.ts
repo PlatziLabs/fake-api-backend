@@ -14,9 +14,9 @@ export class AuthService {
   validateUser(email: string, pass: string) {
     const user = this.usersService.findByEmail(email);
     if (user && user.password === pass) {
-      delete user.password;
-      const { ...result } = user;
-      return result;
+      const userRta = { ...user };
+      delete userRta.password;
+      return userRta;
     }
     return null;
   }
