@@ -14,7 +14,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: true,
+      forbidNonWhitelisted: false,
       transformOptions: {
         enableImplicitConversion: true,
       },
@@ -22,7 +22,7 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Yard Store')
+    .setTitle('Platzi Fake Store API')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
