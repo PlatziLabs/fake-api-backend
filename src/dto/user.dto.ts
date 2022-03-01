@@ -28,3 +28,10 @@ export class CreateUserDto {
   @IsOptional()
   role: string;
 }
+
+export class ValidateUserDto {
+  @ApiProperty()
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+}

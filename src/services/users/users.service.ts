@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { User, Role } from './../../models/user.model';
-import { CreateUserDto } from './../../dto/user.dto';
+import { CreateUserDto, ValidateUserDto } from './../../dto/user.dto';
 
 @Injectable()
 export class UsersService {
@@ -40,6 +40,14 @@ export class UsersService {
 
   getAll() {
     return this.users;
+  }
+
+  isAvailable(dto: ValidateUserDto) {
+    let isAvailable = false;
+    if (dto.email) {
+      isAvailable = this.findByEmail(dto.email) === undefined;
+    }
+    return { isAvailable };
   }
 
   create(dto: CreateUserDto) {
