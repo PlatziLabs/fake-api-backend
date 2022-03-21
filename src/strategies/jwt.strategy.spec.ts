@@ -28,12 +28,12 @@ describe('jwt strategy', () => {
 
   it('should validate a user authorized', async () => {
     const payload = {
-      sub: '500',
+      sub: 500,
       username: 'UserTest',
     };
 
     const responseValidated = {
-      userId: '500',
+      userId: 500,
       username: 'UserTest',
     };
 

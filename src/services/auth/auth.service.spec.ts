@@ -38,7 +38,7 @@ describe('AuthService', () => {
       role: Role.admin,
       password: '12',
     };
-    const userCalled = { email: 'rivera.armando997@gmail', sub: '31' };
+    const userCalled = { email: 'rivera.armando997@gmail', sub: 31 };
 
     const responseToken = 'my-fake-token';
     jest.spyOn(jwtService, 'sign').mockImplementation(() => responseToken);

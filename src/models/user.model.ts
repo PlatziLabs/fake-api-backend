@@ -12,7 +12,7 @@ export interface User {
 }
 
 export interface Payload {
-  sub: string;
+  sub: number;
   username?: string;
   email?: string;
   userId?: number;
