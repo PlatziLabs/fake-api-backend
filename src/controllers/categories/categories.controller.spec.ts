@@ -4,6 +4,8 @@ import { CategoriesService } from '../../services/categories/categories.service'
 import { ProductsService } from '../../services/products/products.service';
 import { DataSetModule } from '@app/data-set';
 import { FilterProductsDto } from '../../dto/product.dto';
+import { Category } from 'src/models/category.model';
+import { Product } from 'src/models/product.model';
 
 describe(`Inspect ${CategoriesController.name} class`, () => {
   let controller: CategoriesController;
@@ -26,7 +28,14 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
     expect(controller).toBeDefined();
   });
   it(`Get all categories`, () => {
-    const result = [{ id: 1, name: 'Laptops', image: 'HP one station' }];
+    const result: Category[] = [
+      {
+        id: 1,
+        name: 'Laptops',
+        image: 'HP one station',
+        keyLoremSpace: 'random',
+      },
+    ];
     const mock = jest
       .spyOn(categoriesService, 'getAll')
       .mockReturnValueOnce(result);
@@ -37,7 +46,12 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
   });
   it(`Create a new category`, () => {
     const body = { name: 'bears', image: 'Yogi the bear' };
-    const result = Object.assign({}, body, { id: 6 });
+    const result: Category = {
+      id: 1,
+      name: 'bears',
+      image: 'Yogi the bear',
+      keyLoremSpace: 'random',
+    };
     const mock = jest
       .spyOn(categoriesService, 'create')
       .mockReturnValueOnce(result);
@@ -62,7 +76,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
       limit: 1,
       offset: 0,
     } as unknown as FilterProductsDto;
-    const result = [
+    const result: Product[] = [
       {
         id: 1,
         title: 'The Title',
@@ -72,6 +86,7 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
           id: 1,
           name: 'Others',
           image: 'animals',
+          keyLoremSpace: 'random',
         },
         images: ['image1', 'image2', 'image3'],
       },

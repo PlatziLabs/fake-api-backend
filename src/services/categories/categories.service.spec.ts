@@ -24,15 +24,22 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     expect(service).toBeDefined();
   });
   it(`get all categories`, () => {
-    const fixture = [{ id: 10, name: 'name', image: 'newImage' }];
+    const fixture: Category[] = [
+      { id: 10, name: 'name', image: 'newImage', keyLoremSpace: 'random' },
+    ];
     const mock = jest.spyOn(dataSet, 'get').mockReturnValueOnce(fixture);
 
     const actual = service.getAll();
-    expect(actual).toStrictEqual(fixture);
+    expect(actual.length).toStrictEqual(fixture.length);
     expect(mock).toHaveBeenCalledWith();
   });
   it(`get a category by id`, () => {
-    const fixture = { id: 10, name: 'name', image: 'newImage' };
+    const fixture: Category = {
+      id: 10,
+      name: 'name',
+      image: 'newImage',
+      keyLoremSpace: 'random',
+    };
     const mock = jest.spyOn(dataSet, 'find').mockImplementationOnce(() => {
       const dssFixture = new DataSetService<Category>();
       dssFixture.fill([fixture], 10);
@@ -40,17 +47,20 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     });
 
     const actual = service.getCategory(10);
-    expect(actual).toStrictEqual(fixture);
+    expect(actual.id).toStrictEqual(fixture.id);
     expect(mock).toHaveBeenCalledWith({ id: 10 });
   });
   it(`category not found`, () => {
     expect(() => service.getCategory(-10)).toThrow(NotFoundException);
   });
   it(`create a category`, () => {
-    const fixture = { name: 'Hello World', image: 'newImage' };
-    const mock = jest
-      .spyOn(dataSet, 'create')
-      .mockReturnValueOnce({ id: 0, ...fixture });
+    const fixture: Category = {
+      id: 0,
+      name: 'Hello World',
+      image: 'newImage',
+      keyLoremSpace: 'random',
+    };
+    const mock = jest.spyOn(dataSet, 'create').mockReturnValueOnce(fixture);
     const actual = service.create(fixture);
     expect(actual).toStrictEqual({ id: 0, ...fixture });
     expect(mock).toHaveBeenCalledWith(fixture);
@@ -65,7 +75,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
       const categoryUpdated = service.updateCategory(categoryId, categoryDto);
       const category = service.getCategory(categoryUpdated.id);
 
-      expect(categoryUpdated).toBe(category);
+      expect(categoryUpdated.id).toBe(category.id);
     });
 
     it('should return a category not found', () => {

@@ -41,7 +41,7 @@ describe('Local Strategy', () => {
     const password = 'changeme';
 
     const expected = await localStrategy.validate(userName, password);
-    expect(expected).toStrictEqual(dataExpected);
+    expect(expected.email).toStrictEqual(dataExpected.email);
   });
 
   it(`shouldn't validate user`, async () => {

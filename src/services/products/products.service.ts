@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { plainToClass } from 'class-transformer';
 import * as faker from 'faker';
 
 import { Product } from '../../models/product.model';
@@ -7,6 +8,7 @@ import { CreateProductDto } from '../../dto/product.dto';
 import { UpdateProductDto } from '../../dto/product.dto';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { CategoriesService } from '../categories/categories.service';
+import { generateImage } from './../../utils';
 
 @Injectable()
 export class ProductsService {
@@ -15,28 +17,30 @@ export class ProductsService {
   categories: Category[] = [];
 
   constructor(private categoriesService: CategoriesService) {
-    this.categories = this.categoriesService.getAll();
+    this.categories = this.categoriesService.getCategories();
     this.generateProducts();
   }
 
   generateProducts() {
+    const products: Product[] = [];
     const size = 200;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
       const category = faker.helpers.randomize(this.categories);
-      this.products.push({
+      products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         description: faker.commerce.productDescription(),
-        category,
+        category: plainToClass(Category, category),
         images: [
-          `https://placeimg.com/640/480/any?r=${Math.random()}`,
-          `https://placeimg.com/640/480/any?r=${Math.random()}`,
-          `https://placeimg.com/640/480/any?r=${Math.random()}`,
+          generateImage(category.keyLoremSpace),
+          generateImage(category.keyLoremSpace),
+          generateImage(category.keyLoremSpace),
         ],
       });
     }
+    this.products = plainToClass(Product, products);
   }
 
   byCategory(categoryId: number, params: FilterProductsDto) {

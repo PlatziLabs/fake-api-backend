@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { User, Role } from './../../models/user.model';
 import { CreateUserDto, ValidateUserDto } from './../../dto/user.dto';
+import { generateImage } from './../../utils';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +14,7 @@ export class UsersService {
       password: 'changeme',
       name: 'Jhon',
       role: Role.customer,
+      avatar: generateImage('face'),
     },
     {
       id: 2,
@@ -20,6 +22,7 @@ export class UsersService {
       password: '12345',
       name: 'Maria',
       role: Role.customer,
+      avatar: generateImage('face'),
     },
     {
       id: 3,
@@ -27,6 +30,7 @@ export class UsersService {
       password: 'admin123',
       name: 'Admin',
       role: Role.admin,
+      avatar: generateImage('face'),
     },
   ];
 

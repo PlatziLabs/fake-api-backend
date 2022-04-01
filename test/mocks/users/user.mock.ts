@@ -6,4 +6,5 @@ export const USER_MOCK: User = {
   password: '1234',
   id: 3,
   role: Role.customer,
+  avatar: '',
 };

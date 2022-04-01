@@ -54,6 +54,7 @@ describe('AuthController', () => {
       password: 'thePassword',
       name: 'theName',
       role: Role.customer,
+      avatar: '',
     };
     const request = { user: { userId: user.id } } as unknown as Request;
     const mock = jest.spyOn(usersService, 'getUser').mockReturnValueOnce(user);

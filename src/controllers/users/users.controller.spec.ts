@@ -24,7 +24,7 @@ describe('UsersController', () => {
 
   it('should call getAll service', () => {
     const data = controller.getAll();
-    expect(data).toEqual(USERS_MOCK);
+    expect(data.length).toEqual(USERS_MOCK.length);
   });
 
   it('should create user', () => {

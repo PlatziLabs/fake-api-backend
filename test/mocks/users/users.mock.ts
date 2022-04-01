@@ -7,6 +7,7 @@ export const USERS_MOCK: User[] = [
     password: 'changeme',
     name: 'Jhon',
     role: Role.customer,
+    avatar: '',
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const USERS_MOCK: User[] = [
     password: '12345',
     name: 'Maria',
     role: Role.customer,
+    avatar: '',
   },
   {
     id: 3,
@@ -21,5 +23,6 @@ export const USERS_MOCK: User[] = [
     password: 'admin123',
     name: 'Admin',
     role: Role.admin,
+    avatar: '',
   },
 ];

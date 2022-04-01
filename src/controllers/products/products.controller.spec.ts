@@ -4,6 +4,7 @@ import { ProductsService } from '../../services/products/products.service';
 import { CategoriesService } from '../../services/categories/categories.service';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { DataSetModule } from '@app/data-set';
+import { Product } from 'src/models/product.model';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
@@ -26,7 +27,7 @@ describe('ProductsController', () => {
 
   it(`call ${ProductsController.name}.getAll()`, () => {
     const filters = new FilterProductsDto();
-    const mockProducts = [
+    const mockProducts: Product[] = [
       {
         id: 21,
         title: 'Fantastic Fresh Chair',
@@ -37,6 +38,7 @@ describe('ProductsController', () => {
           id: 4,
           name: 'Toys',
           image: 'https://placeimg.com/640/480/any',
+          keyLoremSpace: 'random',
         },
         images: [
           'https://placeimg.com/640/480/any?r=0.7242884047070584',
@@ -56,7 +58,7 @@ describe('ProductsController', () => {
   });
 
   it(`call ${ProductsController.name}.getProduct()`, () => {
-    const mockProduct = {
+    const mockProduct: Product = {
       id: 1,
       title: 'Gorgeous Rubber Shoes',
       price: 803,
@@ -66,6 +68,7 @@ describe('ProductsController', () => {
         id: 4,
         name: 'Toys',
         image: 'https://placeimg.com/640/480/any',
+        keyLoremSpace: 'random',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -96,7 +99,7 @@ describe('ProductsController', () => {
       ],
     };
 
-    const mockProductCreated = {
+    const mockProductCreated: Product = {
       id: 1,
       title: 'Gorgeous Rubber Shoes',
       price: 803,
@@ -106,6 +109,7 @@ describe('ProductsController', () => {
         id: 4,
         name: 'Toys',
         image: 'https://placeimg.com/640/480/any',
+        keyLoremSpace: 'random',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
@@ -136,7 +140,7 @@ describe('ProductsController', () => {
       ],
     };
 
-    const productUpdated = {
+    const productUpdated: Product = {
       id: 1,
       title: 'Gorgeous Rubber Shoes',
       price: 800,
@@ -146,13 +150,13 @@ describe('ProductsController', () => {
         id: 4,
         name: 'Toys',
         image: 'https://placeimg.com/640/480/any',
+        keyLoremSpace: 'random',
       },
       images: [
         'https://placeimg.com/640/480/any?r=0.4303855365201734',
         'https://placeimg.com/640/480/any?r=0.37952742592490796',
         'https://placeimg.com/640/480/any?r=0.6533577033687712',
       ],
-      categoryId: 4,
     };
 
     jest.spyOn(service, 'update').mockImplementation(() => productUpdated);

@@ -1,9 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateCategoryDto } from 'src/dto/category.dto';
+import { plainToClass } from 'class-transformer';
 
 import { CreateCategoryDto } from '../../dto/category.dto';
 import { DataSetService } from '@app/data-set';
 import { Category } from './../../models/category.model';
+import { generateImage } from './../../utils';
 
 @Injectable()
 export class CategoriesService {
@@ -12,39 +14,48 @@ export class CategoriesService {
       {
         id: 1,
         name: 'Clothes',
-        image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
+        keyLoremSpace: 'fashion',
+        image: generateImage('fashion'),
       },
       {
         id: 2,
         name: 'Electronics',
-        image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
+        keyLoremSpace: 'watch',
+        image: generateImage('watch'),
       },
       {
         id: 3,
         name: 'Furniture',
-        image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
+        keyLoremSpace: 'furniture',
+        image: generateImage('furniture'),
       },
       {
         id: 4,
-        name: 'Toys',
-        image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
+        name: 'Shoes',
+        keyLoremSpace: 'shoes',
+        image: generateImage('shoes'),
       },
       {
         id: 5,
         name: 'Others',
-        image: `https://placeimg.com/640/480/any?r=${Math.random()}`,
+        keyLoremSpace: 'random',
+        image: generateImage('random'),
       },
     ]);
   }
 
   getAll() {
+    return plainToClass(Category, this.categories.get());
+  }
+
+  getCategories() {
     return this.categories.get();
   }
 
   getCategory(id: number) {
     const category = this.categories.find({ id }).first();
     if (category) {
-      return category;
+      return plainToClass(Category, category);
     }
     throw new NotFoundException();
   }
@@ -57,11 +68,9 @@ export class CategoriesService {
 
   updateCategory(id: number, changes: UpdateCategoryDto) {
     const category = this.categories.update(id, changes);
-
     if (!category) {
       throw new NotFoundException('Category not found');
     }
-
-    return category;
+    return plainToClass(Category, category);
   }
 }

@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { JwtService, JwtModule } from '@nestjs/jwt';
 import { User } from '../../models/user.model';
 import { Role } from '../../models/user.model';
+import { generateImage } from './../../utils';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -37,6 +38,7 @@ describe('AuthService', () => {
       name: 'nico',
       role: Role.admin,
       password: '12',
+      avatar: generateImage('face'),
     };
     const userCalled = { email: 'rivera.armando997@gmail', sub: 31 };
 
@@ -57,6 +59,7 @@ describe('AuthService', () => {
       name: userName,
       password,
       role: Role.admin,
+      avatar: generateImage('face'),
     };
     jest.spyOn(usersService, 'findByEmail').mockReturnValue(user);
     const dataExpected = { ...user };

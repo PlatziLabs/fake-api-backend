@@ -29,6 +29,11 @@ export class CategoriesController {
     return this.categoriesService.getAll();
   }
 
+  @Get(':id')
+  getOne(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.getCategory(id);
+  }
+
   @Post()
   create(@Body() category: CreateCategoryDto) {
     return this.categoriesService.create(category);

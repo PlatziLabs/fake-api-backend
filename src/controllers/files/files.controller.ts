@@ -38,7 +38,7 @@ export class FilesController {
     return {
       originalname: file.originalname,
       filename: file.filename,
-      location: `https://young-sands-07814.herokuapp.com/api/files/${file.filename}`,
+      location: `https://api.escuelajs.co/api/v1/files/${file.filename}`,
     };
   }
 
