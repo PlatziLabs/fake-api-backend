@@ -5,6 +5,7 @@ import {
   IsEmail,
   IsOptional,
   IsUrl,
+  IsNumber,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -40,4 +41,11 @@ export class ValidateUserDto {
   @IsEmail()
   @IsNotEmpty()
   email: string;
+}
+
+export class FilterUsersDto {
+  @ApiProperty()
+  @IsNumber()
+  @IsOptional()
+  limit?: number;
 }

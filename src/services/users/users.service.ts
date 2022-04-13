@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
 import { User, Role } from './../../models/user.model';
-import { CreateUserDto, ValidateUserDto } from './../../dto/user.dto';
+import {
+  CreateUserDto,
+  ValidateUserDto,
+  FilterUsersDto,
+} from './../../dto/user.dto';
 import { generateImage } from './../../utils';
 
 @Injectable()
@@ -42,7 +46,11 @@ export class UsersService {
     return this.users.find((user) => user.id === id);
   }
 
-  getAll() {
+  getAll(params: FilterUsersDto) {
+    const { limit } = params;
+    if (limit) {
+      return this.users.slice(0, limit);
+    }
     return this.users;
   }
 

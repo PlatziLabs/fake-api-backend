@@ -36,13 +36,9 @@ describe(`Inspect ${CategoriesController.name} class`, () => {
         keyLoremSpace: 'random',
       },
     ];
-    const mock = jest
-      .spyOn(categoriesService, 'getAll')
-      .mockReturnValueOnce(result);
-    const mockInput = [];
-    const actual = controller.getAll();
+    jest.spyOn(categoriesService, 'getAll').mockReturnValueOnce(result);
+    const actual = controller.getAll({});
     expect(actual).toStrictEqual(result);
-    expect(mock).toHaveBeenCalledWith(...mockInput);
   });
   it(`Create a new category`, () => {
     const body = { name: 'bears', image: 'Yogi the bear' };

@@ -44,7 +44,7 @@ describe('UsersService', () => {
 
   describe('Test service getAll', () => {
     it('should return all the users', () => {
-      const users = service.getAll();
+      const users = service.getAll({});
 
       expect(users[0].id).toStrictEqual(mockUsers[0].id);
       expect(users[1].id).toStrictEqual(mockUsers[1].id);
@@ -61,7 +61,7 @@ describe('UsersService', () => {
       userDto.role = 'customer';
 
       const userCreated = service.create(userDto);
-      const users = service.getAll();
+      const users = service.getAll({});
       const lastUser = users[users.length - 1];
 
       expect(userCreated).toBe(lastUser);
@@ -75,7 +75,7 @@ describe('UsersService', () => {
       userDto.role = 'seller';
 
       const userCreated = service.create(userDto);
-      const users = service.getAll();
+      const users = service.getAll({});
       const lastUser = users[users.length - 1];
 
       expect(userCreated).toBe(lastUser);

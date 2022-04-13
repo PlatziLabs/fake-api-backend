@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { UpdateCategoryDto } from 'src/dto/category.dto';
+import { FilterCategoriesDto, UpdateCategoryDto } from 'src/dto/category.dto';
 import { plainToClass } from 'class-transformer';
 
 import { CreateCategoryDto } from '../../dto/category.dto';
@@ -44,7 +44,11 @@ export class CategoriesService {
     ]);
   }
 
-  getAll() {
+  getAll(params: FilterCategoriesDto) {
+    const { limit } = params;
+    if (limit) {
+      return plainToClass(Category, this.categories.get().slice(0, limit));
+    }
     return plainToClass(Category, this.categories.get());
   }
 

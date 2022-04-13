@@ -15,6 +15,7 @@ import { ProductsService } from '../../services/products/products.service';
 import { FilterProductsDto } from '../../dto/product.dto';
 import { UpdateCategoryDto } from '../../dto/category.dto';
 import { CreateCategoryDto } from '../../dto/category.dto';
+import { FilterCategoriesDto } from '../../dto/category.dto';
 
 @ApiTags('categories')
 @Controller('categories')
@@ -25,8 +26,8 @@ export class CategoriesController {
   ) {}
 
   @Get()
-  getAll() {
-    return this.categoriesService.getAll();
+  getAll(@Query() params: FilterCategoriesDto) {
+    return this.categoriesService.getAll(params);
   }
 
   @Get(':id')

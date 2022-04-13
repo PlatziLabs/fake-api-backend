@@ -29,7 +29,7 @@ describe(`Inspect ${CategoriesService.name} class`, () => {
     ];
     const mock = jest.spyOn(dataSet, 'get').mockReturnValueOnce(fixture);
 
-    const actual = service.getAll();
+    const actual = service.getAll({});
     expect(actual.length).toStrictEqual(fixture.length);
     expect(mock).toHaveBeenCalledWith();
   });

@@ -23,7 +23,7 @@ describe('UsersController', () => {
   });
 
   it('should call getAll service', () => {
-    const data = controller.getAll();
+    const data = controller.getAll({});
     expect(data.length).toEqual(USERS_MOCK.length);
   });
 
