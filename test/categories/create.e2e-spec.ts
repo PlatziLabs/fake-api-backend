@@ -4,7 +4,7 @@ import { Test } from '@nestjs/testing';
 import { Reflector } from '@nestjs/core';
 import { INestApplication } from '@nestjs/common';
 
-import { AppModule } from './../../src/app.module';
+import { AppModule } from '../../src/app.module';
 
 describe('[GET] /products/', () => {
   let app: INestApplication;
