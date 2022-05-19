@@ -87,7 +87,7 @@ export class ProductsService {
     }
     const { limit, offset } = params;
     if (limit > 0 && offset >= 0) {
-      const end = offset + limit * 3;
+      const end = offset + limit;
       productsWithParams = productsWithParams.slice(offset, end);
     }
     return productsWithParams;
