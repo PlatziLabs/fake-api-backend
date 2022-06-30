@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 import { ProductsController } from './controllers/products/products.controller';
 import { OrdersController } from './controllers/orders/orders.controller';
@@ -16,6 +18,8 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { FilesController } from './controllers/files/files.controller';
 import { DataSetModule } from '@app/data-set';
+import { ProductsResolver } from './resolvers/products/products.resolver';
+import { UsersResolver } from './resolvers/users/users.resolver';
 
 @Module({
   imports: [
@@ -28,6 +32,12 @@ import { DataSetModule } from '@app/data-set';
       dest: './upload',
     }),
     DataSetModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      debug: false,
+      playground: true,
+      typePaths: ['./**/*.graphql'],
+    }),
   ],
   controllers: [
     ProductsController,
@@ -44,6 +54,8 @@ import { DataSetModule } from '@app/data-set';
     UsersService,
     LocalStrategy,
     JwtStrategy,
+    ProductsResolver,
+    UsersResolver,
   ],
 })
 export class AppModule {}
