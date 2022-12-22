@@ -12,6 +12,11 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
       "@app/data-set": [
         "libs/data-set/src"

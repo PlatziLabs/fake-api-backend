@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import * as faker from 'faker';
+import { faker } from '@faker-js/faker';
 
 import { Product } from '../../models/product.model';
 import { Category } from '../../models/category.model';
@@ -26,7 +26,7 @@ export class ProductsService {
     const size = 200;
     for (let index = 0; index < size; index++) {
       this.currentId = index + 1;
-      const category = faker.helpers.randomize(this.categories);
+      const category = faker.helpers.arrayElement(this.categories);
       products.push({
         id: this.currentId,
         title: faker.commerce.productName(),
