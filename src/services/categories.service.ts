@@ -16,41 +16,6 @@ export class CategoriesService {
     private categoriesRepo: Repository<Category>,
   ) {}
 
-  // constructor(private categories: DataSetService<Category>) {
-  //   categories.fill([
-  //     {
-  //       id: 1,
-  //       name: 'Clothes',
-  //       keyLoremSpace: 'fashion',
-  //       image: generateImage('fashion'),
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'Electronics',
-  //       keyLoremSpace: 'watch',
-  //       image: generateImage('watch'),
-  //     },
-  //     {
-  //       id: 3,
-  //       name: 'Furniture',
-  //       keyLoremSpace: 'furniture',
-  //       image: generateImage('furniture'),
-  //     },
-  //     {
-  //       id: 4,
-  //       name: 'Shoes',
-  //       keyLoremSpace: 'shoes',
-  //       image: generateImage('shoes'),
-  //     },
-  //     {
-  //       id: 5,
-  //       name: 'Others',
-  //       keyLoremSpace: 'random',
-  //       image: generateImage('random'),
-  //     },
-  //   ]);
-  // }
-
   getAll(params: FilterCategoriesDto) {
     const { limit } = params;
     if (limit) {

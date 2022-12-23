@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { Product } from '@db/entities/product.entity';
+import { Category } from '@db/entities/category.entity';
 import { CreateProductDto } from '@dtos/product.dto';
 import { UpdateProductDto } from '../dtos/product.dto';
 import { FilterProductsDto } from '../dtos/product.dto';
@@ -12,29 +13,9 @@ export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private productsRepo: Repository<Product>,
+    @InjectRepository(Category)
+    private categoryRepo: Repository<Category>,
   ) {}
-
-  generateProducts() {
-    // const products: Product[] = [];
-    // const size = 200;
-    // for (let index = 0; index < size; index++) {
-    //   this.currentId = index + 1;
-    //   const category = faker.helpers.arrayElement(this.categories);
-    //   products.push({
-    //     id: this.currentId,
-    //     title: faker.commerce.productName(),
-    //     price: parseInt(faker.commerce.price(), 10),
-    //     description: faker.commerce.productDescription(),
-    //     category: plainToClass(Category, category),
-    //     images: [
-    //       generateImage(category.keyLoremSpace),
-    //       generateImage(category.keyLoremSpace),
-    //       generateImage(category.keyLoremSpace),
-    //     ],
-    //   });
-    // }
-    // this.products = plainToClass(Product, products);
-  }
 
   byCategory(categoryId: number, params: FilterProductsDto) {
     // if (this.products.length === 0) {
@@ -50,6 +31,9 @@ export class ProductsService {
   }
 
   getAll(params: FilterProductsDto) {
+    return this.productsRepo.find({
+      relations: ['category'],
+    });
     // if (this.products.length === 0) {
     //   this.generateProducts();
     // }
@@ -86,8 +70,11 @@ export class ProductsService {
     // return productsWithParams;
   }
 
-  getProduct(id: number) {
-    return this.productsRepo.findOneByOrFail({ id });
+  findById(id: number) {
+    return this.productsRepo.findOneOrFail({
+      relations: ['category'],
+      where: { id },
+    });
   }
 
   update(id: number, changes: UpdateProductDto) {
@@ -111,21 +98,16 @@ export class ProductsService {
     // return { rta: true };
   }
 
-  create(body: CreateProductDto) {
-    // const { categoryId, ...data } = body;
-    // const categoryIndex = this.categories.findIndex(
-    //   (item) => item.id === categoryId,
-    // );
-    // if (categoryIndex === -1) {
-    //   throw new NotFoundException('Category not found');
-    // }
-    // this.currentId = this.currentId + 1;
-    // const newProduct = {
-    //   ...data,
-    //   category: this.categories[categoryIndex],
-    //   id: this.currentId,
-    // };
-    // this.products.push(newProduct);
-    // return newProduct;
+  async create(dto: CreateProductDto) {
+    const { categoryId, ...data } = dto;
+    const category = await this.categoryRepo.findOneByOrFail({
+      id: categoryId,
+    });
+    const newProduct = this.productsRepo.create({
+      ...data,
+      images: JSON.stringify(data.images),
+    });
+    newProduct.category = category;
+    return this.productsRepo.save(newProduct);
   }
 }

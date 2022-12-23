@@ -41,3 +41,6 @@ lerna-debug.log*
 db
 db-shm
 db-wal
+db.sqlite
+db.sqlite-shm
+db.sqlite-wal

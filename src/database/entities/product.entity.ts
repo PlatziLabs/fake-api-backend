@@ -8,6 +8,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { Category } from '@db/entities/category.entity';
+import { Transform } from 'class-transformer';
 
 @Entity()
 export class Product {
@@ -27,6 +28,7 @@ export class Product {
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
+  @Transform(({ value }) => JSON.parse(value))
   @Column()
   images: string;
 

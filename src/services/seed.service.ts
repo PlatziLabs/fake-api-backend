@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { faker } from '@faker-js/faker';
 
 import { Category } from '@db/entities/category.entity';
 import { Product } from '@db/entities/product.entity';
@@ -53,7 +54,7 @@ export class SeedService {
 
     // -------- CATEGORIES --------
 
-    await categoriesRepo.save([
+    const categoriesRta = await categoriesRepo.save([
       {
         id: 1,
         name: 'Clothes',
@@ -85,6 +86,27 @@ export class SeedService {
         image: generateImage('random'),
       },
     ]);
+
+    // -------- Products --------
+
+    const productsData: Array<Partial<Product>> = [];
+    const size = 200;
+    for (let index = 0; index < size; index++) {
+      const category = faker.helpers.arrayElement(categoriesRta);
+      const images = [
+        generateImage(category.keyLoremSpace),
+        generateImage(category.keyLoremSpace),
+        generateImage(category.keyLoremSpace),
+      ];
+      productsData.push({
+        title: faker.commerce.productName(),
+        price: parseInt(faker.commerce.price(), 10),
+        description: faker.commerce.productDescription(),
+        category,
+        images: JSON.stringify(images),
+      });
+    }
+    await productsRepo.save(productsData);
 
     // -------- COUNTERS --------
 

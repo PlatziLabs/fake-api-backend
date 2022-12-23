@@ -28,7 +28,7 @@ export class ProductsController {
 
   @Get(':id')
   getProduct(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.getProduct(id);
+    return this.productsService.findById(id);
   }
 
   @Post()
