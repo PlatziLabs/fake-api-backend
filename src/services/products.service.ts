@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Between, FindManyOptions, Like } from 'typeorm';
 
 import { Product } from '@db/entities/product.entity';
 import { Category } from '@db/entities/category.entity';
 import { CreateProductDto } from '@dtos/product.dto';
-import { UpdateProductDto } from '../dtos/product.dto';
-import { FilterProductsDto } from '../dtos/product.dto';
+import { UpdateProductDto } from '@dtos/product.dto';
+import { FilterProductsDto } from '@dtos/product.dto';
 
 @Injectable()
 export class ProductsService {
@@ -17,57 +17,51 @@ export class ProductsService {
     private categoryRepo: Repository<Category>,
   ) {}
 
-  byCategory(categoryId: number, params: FilterProductsDto) {
-    // if (this.products.length === 0) {
-    //   this.generateProducts();
-    // }
-    // if (params?.limit > 0 && params?.offset >= 0) {
-    //   const end = params.offset + params?.limit;
-    //   return this.products
-    //     .filter((item) => item.category.id === categoryId)
-    //     .slice(params.offset, end);
-    // }
-    // return this.products.filter((item) => item.category.id === categoryId);
+  async byCategory(categoryId: number, params: FilterProductsDto) {
+    const options: FindManyOptions<Product> = {
+      relations: ['category'],
+      where: {
+        category: { id: categoryId },
+      },
+    };
+    if (params?.limit > 0 && params?.offset >= 0) {
+      options.take = params?.limit;
+      options.skip = params?.offset;
+    }
+    return this.productsRepo.find(options);
   }
 
   getAll(params: FilterProductsDto) {
-    return this.productsRepo.find({
+    const options: FindManyOptions<Product> = {
       relations: ['category'],
-    });
-    // if (this.products.length === 0) {
-    //   this.generateProducts();
-    // }
+    };
 
-    // let productsWithParams = [...this.products];
-    // const { price } = params;
-    // if (price) {
-    //   productsWithParams = productsWithParams.filter(
-    //     (item) => item.price === price,
-    //   );
-    // }
+    const { price, price_min, price_max } = params;
+    if (price && !!price_min && !!price_max) {
+      options.where = {
+        price,
+      };
+    }
 
-    // const { price_min, price_max } = params;
-    // if (price_min && price_max && !price) {
-    //   productsWithParams = productsWithParams.filter(
-    //     (item) => item.price >= price_min && item.price <= price_max,
-    //   );
-    // }
+    if (!!price && price_min && price_max) {
+      options.where = {
+        price: Between(price_min, price_max),
+      };
+    }
 
-    // const { query } = params;
-    // if (query) {
-    //   const expression = new RegExp(query, 'i');
-    //   productsWithParams = productsWithParams.filter((product) => {
-    //     if (expression.test(product.title)) {
-    //       return product;
-    //     }
-    //   });
-    // }
-    // const { limit, offset } = params;
-    // if (limit > 0 && offset >= 0) {
-    //   const end = offset + limit;
-    //   productsWithParams = productsWithParams.slice(offset, end);
-    // }
-    // return productsWithParams;
+    const { query } = params;
+    if (query) {
+      options.where = {
+        ...options.where,
+        title: Like(query),
+      };
+    }
+
+    if (params?.limit > 0 && params?.offset >= 0) {
+      options.take = params?.limit;
+      options.skip = params?.offset;
+    }
+    return this.productsRepo.find(options);
   }
 
   findById(id: number) {
@@ -77,25 +71,15 @@ export class ProductsService {
     });
   }
 
-  update(id: number, changes: UpdateProductDto) {
-    // const productIndex = this.products.findIndex((item) => item.id === id);
-    // if (productIndex === -1) {
-    //   throw new NotFoundException('Product not found');
-    // }
-    // this.products[productIndex] = {
-    //   ...this.products[productIndex],
-    //   ...changes,
-    // };
-    // return this.products[productIndex];
+  async update(id: number, changes: UpdateProductDto) {
+    const product = await this.findById(id);
+    this.productsRepo.merge(product, changes);
+    return this.productsRepo.save(product);
   }
 
-  delete(id: number) {
-    // const productIndex = this.products.findIndex((item) => item.id === id);
-    // if (productIndex === -1) {
-    //   throw new NotFoundException('Product not found');
-    // }
-    // this.products.splice(productIndex, 1);
-    // return { rta: true };
+  async delete(id: number) {
+    const product = await this.findById(id);
+    return this.productsRepo.delete(product);
   }
 
   async create(dto: CreateProductDto) {

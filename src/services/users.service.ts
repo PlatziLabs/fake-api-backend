@@ -1,10 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { CreateUserDto, FilterUsersDto, ValidateUserDto } from '@dtos/user.dto';
+import {
+  CreateUserDto,
+  FilterUsersDto,
+  ValidateUserDto,
+  UpdateUserDto,
+} from '@dtos/user.dto';
 import { User } from '@db/entities/user.entity';
 import { Role } from '@models/roles';
+
+const USERS = [1, 2, 3];
 
 @Injectable()
 export class UsersService {
@@ -41,5 +48,16 @@ export class UsersService {
     const newUser = this.usersRepo.create(dto);
     newUser.role = dto.role ?? Role.customer;
     return this.usersRepo.save(newUser);
+  }
+
+  async update(id: User['id'], changes: UpdateUserDto) {
+    if (USERS.some((userId) => userId === id)) {
+      throw new UnauthorizedException(
+        'This user is not available for updating; instead, create your own user to update.',
+      );
+    }
+    const user = await this.findById(id);
+    this.usersRepo.merge(user, changes);
+    return this.usersRepo.save(user);
   }
 }

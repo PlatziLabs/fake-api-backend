@@ -5,12 +5,13 @@ import {
   Body,
   Query,
   Param,
+  Put,
   ParseIntPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from '@services/users.service';
-import { CreateUserDto, ValidateUserDto } from '@dtos/user.dto';
+import { CreateUserDto, ValidateUserDto, UpdateUserDto } from '@dtos/user.dto';
 import { FilterUsersDto } from '@dtos/user.dto';
 
 @ApiTags('users')
@@ -24,7 +25,7 @@ export class UsersController {
 
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.getUser(id);
+    return this.usersService.findById(id);
   }
 
   @Post()
@@ -35,5 +36,13 @@ export class UsersController {
   @Post('is-available')
   isAvailable(@Body() dto: ValidateUserDto) {
     return this.usersService.isAvailable(dto);
+  }
+
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() changes: UpdateUserDto,
+  ) {
+    return this.usersService.update(id, changes);
   }
 }

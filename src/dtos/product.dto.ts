@@ -34,7 +34,7 @@ export class CreateProductDto {
   @ApiProperty()
   @IsArray()
   @IsNotEmpty()
-  images: string[];
+  images: string;
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

@@ -8,7 +8,7 @@ import {
   IsNumber,
   IsEnum,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { Role } from '@models/roles';
 
 export class CreateUserDto {
@@ -37,6 +37,8 @@ export class CreateUserDto {
   @IsNotEmpty()
   avatar: string;
 }
+
+export class UpdateUserDto extends PartialType(CreateUserDto) {}
 
 export class ValidateUserDto {
   @ApiProperty()
