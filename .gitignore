@@ -34,3 +34,10 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 /upload
+
+*.env.local
+*.env.prod
+
+db
+db-shm
+db-wal

@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Query,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { UsersService } from './../../services/users/users.service';
-import { CreateUserDto, ValidateUserDto } from './../../dto/user.dto';
-import { FilterUsersDto } from './../../dto/user.dto';
+import { UsersService } from '@services/users.service';
+import { CreateUserDto, ValidateUserDto } from '@dtos/user.dto';
+import { FilterUsersDto } from '@dtos/user.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -12,6 +20,11 @@ export class UsersController {
   @Get()
   getAll(@Query() params: FilterUsersDto) {
     return this.usersService.getAll(params);
+  }
+
+  @Get(':id')
+  get(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getUser(id);
   }
 
   @Post()

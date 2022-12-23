@@ -1,4 +1,4 @@
-import { User, Role } from '../../../src/models/user.model';
+import { User, Role } from '../../../src/models/payload.model';
 
 export const USER_MOCK: User = {
   email: 'rivera.armando997@gmail.com',

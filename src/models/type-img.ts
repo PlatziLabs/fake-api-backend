@@ -1,0 +1,16 @@
+export type typeImg =
+  | 'movie'
+  | 'game'
+  | 'album'
+  | 'album'
+  | 'face'
+  | 'fashion'
+  | 'shoes'
+  | 'watch'
+  | 'furniture'
+  | 'pizza'
+  | 'burger'
+  | 'drink'
+  | 'car'
+  | 'house'
+  | 'random';

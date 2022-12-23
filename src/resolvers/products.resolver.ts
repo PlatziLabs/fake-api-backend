@@ -1,6 +1,6 @@
 import { Resolver, Query, Args, ID, Mutation } from '@nestjs/graphql';
-import { FilterProductsDto, CreateProductDto } from 'src/dto/product.dto';
-import { ProductsService } from '../../services/products/products.service';
+import { FilterProductsDto, CreateProductDto } from '@dtos/product.dto';
+import { ProductsService } from '../services/products.service';
 
 interface CreateProductDtov2 {
   title: string;

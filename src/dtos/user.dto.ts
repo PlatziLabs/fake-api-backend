@@ -6,8 +6,10 @@ import {
   IsOptional,
   IsUrl,
   IsNumber,
+  IsEnum,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from '@models/roles';
 
 export class CreateUserDto {
   @ApiProperty()
@@ -26,9 +28,9 @@ export class CreateUserDto {
   password: string;
 
   @ApiProperty()
-  @IsString()
   @IsOptional()
-  role: string;
+  @IsEnum(Role)
+  role: Role;
 
   @ApiProperty()
   @IsUrl()

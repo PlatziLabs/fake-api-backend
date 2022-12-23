@@ -11,10 +11,10 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { ProductsService } from '../../services/products/products.service';
-import { CreateProductDto } from '../../dto/product.dto';
-import { UpdateProductDto } from '../../dto/product.dto';
-import { FilterProductsDto } from '../../dto/product.dto';
+import { ProductsService } from '../services/products.service';
+import { CreateProductDto } from '../dtos/product.dto';
+import { UpdateProductDto } from '../dtos/product.dto';
+import { FilterProductsDto } from '../dtos/product.dto';
 
 @ApiTags('products')
 @Controller('products')

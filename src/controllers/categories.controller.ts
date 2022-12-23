@@ -7,15 +7,16 @@ import {
   Put,
   Query,
   Post,
+  Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
-import { CategoriesService } from '../../services/categories/categories.service';
-import { ProductsService } from '../../services/products/products.service';
-import { FilterProductsDto } from '../../dto/product.dto';
-import { UpdateCategoryDto } from '../../dto/category.dto';
-import { CreateCategoryDto } from '../../dto/category.dto';
-import { FilterCategoriesDto } from '../../dto/category.dto';
+import { CategoriesService } from '@services/categories.service';
+import { ProductsService } from '@services/products.service';
+import { FilterProductsDto } from '@dtos/product.dto';
+import { UpdateCategoryDto } from '@dtos/category.dto';
+import { CreateCategoryDto } from '@dtos/category.dto';
+import { FilterCategoriesDto } from '@dtos/category.dto';
 
 @ApiTags('categories')
 @Controller('categories')
@@ -32,7 +33,7 @@ export class CategoriesController {
 
   @Get(':id')
   getOne(@Param('id', ParseIntPipe) id: number) {
-    return this.categoriesService.getCategory(id);
+    return this.categoriesService.findById(id);
   }
 
   @Post()
@@ -49,10 +50,15 @@ export class CategoriesController {
   }
 
   @Put(':id')
-  updateCategory(
+  update(
     @Param('id', ParseIntPipe) id: number,
     @Body() changes: UpdateCategoryDto,
   ) {
-    return this.categoriesService.updateCategory(id, changes);
+    return this.categoriesService.update(id, changes);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.categoriesService.delete(id);
   }
 }
