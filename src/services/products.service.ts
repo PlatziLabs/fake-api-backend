@@ -1,6 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Between, FindManyOptions, Like } from 'typeorm';
+import {
+  Repository,
+  MoreThanOrEqual,
+  LessThanOrEqual,
+  FindManyOptions,
+  Like,
+  And,
+} from 'typeorm';
 
 import { Product } from '@db/entities/product.entity';
 import { Category } from '@db/entities/category.entity';
@@ -37,15 +44,15 @@ export class ProductsService {
     };
 
     const { price, price_min, price_max } = params;
-    if (price && !!price_min && !!price_max) {
+    if (price && !price_min && !price_max) {
       options.where = {
         price,
       };
     }
 
-    if (!!price && price_min && price_max) {
+    if (!price && price_min && price_max) {
       options.where = {
-        price: Between(price_min, price_max),
+        price: And(MoreThanOrEqual(price_min), LessThanOrEqual(price_max)),
       };
     }
 
@@ -53,7 +60,7 @@ export class ProductsService {
     if (query) {
       options.where = {
         ...options.where,
-        title: Like(query),
+        title: Like(`%${query}%`),
       };
     }
 
@@ -71,7 +78,7 @@ export class ProductsService {
     });
   }
 
-  async update(id: number, changes: UpdateProductDto) {
+  async update(id: Product['id'], changes: UpdateProductDto) {
     const product = await this.findById(id);
     this.productsRepo.merge(product, changes);
     return this.productsRepo.save(product);
@@ -79,7 +86,8 @@ export class ProductsService {
 
   async delete(id: number) {
     const product = await this.findById(id);
-    return this.productsRepo.delete(product);
+    await this.productsRepo.delete({ id: product.id });
+    return true;
   }
 
   async create(dto: CreateProductDto) {

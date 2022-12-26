@@ -5,22 +5,40 @@ import {
   IsNumber,
   IsOptional,
 } from 'class-validator';
-import { ApiProperty, PartialType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
+import { Field, InputType, ArgsType } from '@nestjs/graphql';
 
+@InputType()
 export class CreateCategoryDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
+  @Field()
   name: string;
 
   @ApiProperty()
   @IsUrl()
   @IsNotEmpty()
+  @Field()
   image: string;
 }
 
-export class UpdateCategoryDto extends PartialType(CreateCategoryDto) {}
+@InputType()
+export class UpdateCategoryDto {
+  @ApiProperty()
+  @IsString()
+  @IsOptional()
+  @Field({ nullable: true })
+  name: string;
 
+  @ApiProperty()
+  @IsUrl()
+  @IsOptional()
+  @Field({ nullable: true })
+  image: string;
+}
+
+@ArgsType()
 export class FilterCategoriesDto {
   @ApiProperty()
   @IsNumber()

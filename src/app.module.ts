@@ -21,6 +21,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { FilesController } from './controllers/files.controller';
 import { ProductsResolver } from './resolvers/products.resolver';
+import { CategoriesResolver } from './resolvers/categories.resolver';
 import { UsersResolver } from './resolvers/users.resolver';
 
 import { DatabaseModule } from '@db/database.module';
@@ -52,7 +53,8 @@ import environments from './config/environments';
       driver: ApolloDriver,
       debug: false,
       playground: true,
-      typePaths: ['./**/*.graphql'],
+      autoSchemaFile: './src/schema.gql',
+      installSubscriptionHandlers: true,
     }),
     DatabaseModule,
   ],
@@ -75,6 +77,7 @@ import environments from './config/environments';
     JwtStrategy,
     ProductsResolver,
     UsersResolver,
+    CategoriesResolver,
   ],
 })
 export class AppModule {}

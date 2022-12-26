@@ -41,7 +41,7 @@ export class CategoriesService {
 
   async delete(id: Category['id']) {
     const category = await this.findById(id);
-    await this.categoriesRepo.delete(category);
+    await this.categoriesRepo.delete({ id: category.id });
     return true;
   }
 }

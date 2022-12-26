@@ -1,36 +1,41 @@
 import { Resolver, Query, Args, ID, Mutation } from '@nestjs/graphql';
-import { FilterProductsDto, CreateProductDto } from '@dtos/product.dto';
-import { ProductsService } from '../services/products.service';
+import {
+  FilterProductsDto,
+  CreateProductDto,
+  UpdateProductDto,
+} from '@dtos/product.dto';
+import { Product } from '@db/entities/product.entity';
+import { ProductsService } from '@services/products.service';
 
-interface CreateProductDtov2 {
-  title: string;
-  price: number;
-  description: string;
-}
-
-@Resolver()
+@Resolver(() => Product)
 export class ProductsResolver {
   constructor(private productsService: ProductsService) {}
 
-  @Query('products')
-  getAll() {
-    const dto = new FilterProductsDto();
-    return this.productsService.getAll(dto);
+  @Query(() => [Product])
+  products(@Args() params: FilterProductsDto) {
+    return this.productsService.getAll(params);
   }
 
-  @Query('product')
-  getProduct(@Args('id', { type: () => ID }) id: string) {
-    return this.productsService.getProduct(+id);
+  @Query(() => Product)
+  product(@Args('id', { type: () => ID }) id: string) {
+    return this.productsService.findById(+id);
   }
 
-  @Mutation('product')
-  create(@Args('dto') product: CreateProductDtov2) {
-    const dto = new CreateProductDto();
-    dto.title = product.title;
-    dto.description = product.description;
-    dto.price = product.price;
-    dto.images = [];
-    dto.categoryId = 1;
+  @Mutation(() => Product)
+  addProduct(@Args('data') dto: CreateProductDto) {
     return this.productsService.create(dto);
+  }
+
+  @Mutation(() => Product)
+  updateProduct(
+    @Args('id', { type: () => ID }) id: number,
+    @Args('changes') changes: UpdateProductDto,
+  ) {
+    return this.productsService.update(id, changes);
+  }
+
+  @Mutation(() => Boolean)
+  deleteProduct(@Args('id', { type: () => ID }) id: number) {
+    return this.productsService.delete(id);
   }
 }
