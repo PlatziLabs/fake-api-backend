@@ -12,13 +12,25 @@
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/data-set": [
-        "libs/data-set/src"
-      ],
-      "@app/data-set/*": [
-        "libs/data-set/src/*"
-      ]
+      "@models/*": ["./src/models/*"],
+      "@strategies/*": ["./src/strategies/*"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@dtos/*": ["./src/dtos/*"],
+      "@db/*": ["src/database/*"],
+      "@config/*": ["src/config/*"],
+      "@guards/*": ["src/guards/*"],
+      "@decorators/*": ["src/decorators/*"],
     }
+  },
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
   }
 }
