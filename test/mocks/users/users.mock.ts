@@ -1,4 +1,4 @@
-import { User, Role } from '../../../src/models/user.model';
+import { User, Role } from '../../../src/models/payload.model';
 
 export const USERS_MOCK: User[] = [
   {
