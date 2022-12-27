@@ -29,4 +29,9 @@ export class UsersResolver {
   ) {
     return this.usersService.update(id, changes);
   }
+
+  @Mutation(() => Boolean)
+  deleteUser(@Args('id', { type: () => ID }) id: string) {
+    return this.usersService.delete(+id);
+  }
 }

@@ -7,6 +7,7 @@ import {
   Param,
   Put,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -44,5 +45,10 @@ export class UsersController {
     @Body() changes: UpdateUserDto,
   ) {
     return this.usersService.update(id, changes);
+  }
+
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.delete(id);
   }
 }

@@ -7,6 +7,7 @@ import {
   IsUrl,
   IsNumber,
   IsEnum,
+  MinLength,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '@models/roles';
@@ -29,13 +30,14 @@ export class CreateUserDto {
   @ApiProperty()
   @IsAlphanumeric()
   @IsNotEmpty()
+  @MinLength(4)
   @Field()
   password: string;
 
   @ApiProperty()
   @IsOptional()
   @IsEnum(Role)
-  @Field(() => Role)
+  @Field(() => Role, { nullable: true })
   role: Role;
 
   @ApiProperty()
@@ -61,8 +63,9 @@ export class UpdateUserDto {
 
   @ApiProperty()
   @IsAlphanumeric()
+  @MinLength(4)
   @IsOptional()
-  @Field()
+  @Field({ nullable: true })
   password: string;
 
   @ApiProperty()

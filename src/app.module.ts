@@ -8,7 +8,6 @@ import { ConfigModule, ConfigType } from '@nestjs/config';
 
 import { SeedController } from './controllers/seed.controller';
 import { ProductsController } from './controllers/products.controller';
-import { OrdersController } from './controllers/orders.controller';
 import { UsersController } from './controllers/users.controller';
 import { AuthController } from './controllers/auth.controller';
 import { CategoriesController } from './controllers/categories.controller';
@@ -23,6 +22,7 @@ import { FilesController } from './controllers/files.controller';
 import { ProductsResolver } from './resolvers/products.resolver';
 import { CategoriesResolver } from './resolvers/categories.resolver';
 import { UsersResolver } from './resolvers/users.resolver';
+import { AuthResolver } from './resolvers/auth.resolver';
 
 import { DatabaseModule } from '@db/database.module';
 
@@ -61,7 +61,6 @@ import environments from './config/environments';
   controllers: [
     SeedController,
     ProductsController,
-    OrdersController,
     UsersController,
     AuthController,
     CategoriesController,
@@ -78,6 +77,7 @@ import environments from './config/environments';
     ProductsResolver,
     UsersResolver,
     CategoriesResolver,
+    AuthResolver,
   ],
 })
 export class AppModule {}

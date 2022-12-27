@@ -60,4 +60,15 @@ export class UsersService {
     this.usersRepo.merge(user, changes);
     return this.usersRepo.save(user);
   }
+
+  async delete(id: number) {
+    if (USERS.some((userId) => userId === id)) {
+      throw new UnauthorizedException(
+        'This user is not available for deleting; instead, create your own user to delete.',
+      );
+    }
+    const user = await this.findById(id);
+    await this.usersRepo.delete({ id: user.id });
+    return true;
+  }
 }

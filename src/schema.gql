@@ -41,13 +41,20 @@ type User {
   updatedAt: DateTime!
 }
 
+"""Login """
+type Login {
+  access_token: String!
+  refresh_token: String!
+}
+
 type Query {
-  products(limit: Int, offset: Int, price: Int, price_min: Int, price_max: Int, query: String): [Product!]!
+  products(limit: Int, offset: Int, price: Int, price_min: Int, price_max: Int, title: String, categoryId: Float): [Product!]!
   product(id: ID!): Product!
   users(limit: Float): [User!]!
   user(id: ID!): User!
   categories: [Category!]!
   category(id: ID!): Category!
+  myProfile: User!
 }
 
 type Mutation {
@@ -56,9 +63,12 @@ type Mutation {
   deleteProduct(id: ID!): Boolean!
   addUser(data: CreateUserDto!): User!
   updateUser(id: ID!, changes: UpdateUserDto!): User!
+  deleteUser(id: ID!): Boolean!
   addCategory(data: CreateCategoryDto!): Category!
   updateCategory(id: ID!, changes: UpdateCategoryDto!): Category!
   deleteCategory(id: ID!): Boolean!
+  login(email: String!, password: String!): Login!
+  refreshToken(refreshToken: String!): Login!
 }
 
 input CreateProductDto {
@@ -66,7 +76,7 @@ input CreateProductDto {
   price: Float!
   description: String!
   categoryId: Float!
-  images: String!
+  images: [String!]!
 }
 
 input UpdateProductDto {
@@ -74,14 +84,14 @@ input UpdateProductDto {
   price: Float
   description: String
   categoryId: Float
-  images: String
+  images: [String!]
 }
 
 input CreateUserDto {
   email: String!
   name: String!
   password: String!
-  role: Role!
+  role: Role
   avatar: String!
 }
 
@@ -93,7 +103,7 @@ enum Role {
 input UpdateUserDto {
   email: String
   name: String
-  password: String!
+  password: String
   role: Role
   avatar: String
 }

@@ -40,7 +40,7 @@ export class CreateProductDto {
   @ApiProperty()
   @IsArray()
   @IsNotEmpty()
-  @Field()
+  @Field(() => [String])
   images: string;
 }
 
@@ -73,7 +73,7 @@ export class UpdateProductDto {
   @ApiProperty()
   @IsArray()
   @IsOptional()
-  @Field({ nullable: true })
+  @Field(() => [String], { nullable: true })
   images: string;
 }
 
@@ -108,5 +108,10 @@ export class FilterProductsDto {
   @IsOptional()
   @IsString()
   @Field({ nullable: true })
-  query: string;
+  title: string;
+
+  @IsOptional()
+  @IsNumber()
+  @Field({ nullable: true })
+  categoryId: number;
 }

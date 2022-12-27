@@ -56,11 +56,19 @@ export class ProductsService {
       };
     }
 
-    const { query } = params;
-    if (query) {
+    const { title } = params;
+    if (title) {
       options.where = {
         ...options.where,
-        title: Like(`%${query}%`),
+        title: Like(`%${title}%`),
+      };
+    }
+
+    const { categoryId } = params;
+    if (categoryId) {
+      options.where = {
+        ...options.where,
+        category: { id: categoryId },
       };
     }
 
@@ -84,12 +92,6 @@ export class ProductsService {
     return this.productsRepo.save(product);
   }
 
-  async delete(id: number) {
-    const product = await this.findById(id);
-    await this.productsRepo.delete({ id: product.id });
-    return true;
-  }
-
   async create(dto: CreateProductDto) {
     const { categoryId, ...data } = dto;
     const category = await this.categoryRepo.findOneByOrFail({
@@ -101,5 +103,11 @@ export class ProductsService {
     });
     newProduct.category = category;
     return this.productsRepo.save(newProduct);
+  }
+
+  async delete(id: number) {
+    const product = await this.findById(id);
+    await this.productsRepo.delete({ id: product.id });
+    return true;
   }
 }

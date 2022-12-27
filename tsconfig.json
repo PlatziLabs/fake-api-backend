@@ -27,6 +27,7 @@
       "@db/*": ["src/database/*"],
       "@config/*": ["src/config/*"],
       "@guards/*": ["src/guards/*"],
+      "@decorators/*": ["src/decorators/*"],
     }
   },
   "ts-node": {
