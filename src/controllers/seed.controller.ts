@@ -10,6 +10,6 @@ export class SeedController {
   @ApiExcludeEndpoint()
   @Post()
   init() {
-    return this.seedService.init();
+    throw new Error('This method should not be called');
   }
 }
