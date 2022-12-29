@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { MulterModule } from '@nestjs/platform-express';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule, ConfigType } from '@nestjs/config';
+import { SentryModule } from '@ntegral/nestjs-sentry';
+import { GraphqlInterceptor } from '@ntegral/nestjs-sentry';
 
 import { SeedController } from './controllers/seed.controller';
 import { ProductsController } from './controllers/products.controller';
@@ -56,6 +59,19 @@ import environments from './config/environments';
       introspection: true,
       autoSchemaFile: './src/schema.gql',
     }),
+    SentryModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigType<typeof config>) => {
+        return {
+          inject: [configService.sentrySampleRate],
+          dsn: configService.sentryDSN,
+          sampleRate: parseFloat(configService.sentrySampleRate),
+          environment: configService.env,
+          enabled: configService.env === 'production',
+        };
+      },
+      inject: [config.KEY],
+    }),
     DatabaseModule,
   ],
   controllers: [
@@ -78,6 +94,10 @@ import environments from './config/environments';
     UsersResolver,
     CategoriesResolver,
     AuthResolver,
+    {
+      provide: APP_INTERCEPTOR,
+      useFactory: () => new GraphqlInterceptor(),
+    },
   ],
 })
 export class AppModule {}
