@@ -66,6 +66,7 @@ import environments from './config/environments';
           sampleRate: parseFloat(configService.sentrySampleRate),
           environment: configService.env,
           enabled: configService.env === 'production',
+          logLevels: ['error'],
         };
       },
       inject: [config.KEY],
