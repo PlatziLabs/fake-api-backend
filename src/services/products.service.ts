@@ -88,6 +88,9 @@ export class ProductsService {
 
   async update(id: Product['id'], changes: UpdateProductDto) {
     const product = await this.findById(id);
+    if (changes.images) {
+      changes.images = JSON.stringify(changes.images);
+    }
     this.productsRepo.merge(product, changes);
     return this.productsRepo.save(product);
   }
