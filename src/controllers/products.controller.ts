@@ -9,7 +9,7 @@ import {
   Query,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiTags, ApiExcludeEndpoint } from '@nestjs/swagger';
 
 import { ProductsService } from '@services/products.service';
 import { CreateProductDto } from '@dtos/product.dto';
@@ -47,5 +47,11 @@ export class ProductsController {
   @Delete(':id')
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.delete(id);
+  }
+
+  @ApiExcludeEndpoint()
+  @Post('/raw')
+  getRaw() {
+    return this.productsService.getRaw();
   }
 }

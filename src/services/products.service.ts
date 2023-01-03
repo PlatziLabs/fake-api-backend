@@ -110,4 +110,8 @@ export class ProductsService {
     await this.productsRepo.delete({ id: product.id });
     return true;
   }
+
+  getRaw() {
+    return this.productsRepo.query('SELECT * FROM product');
+  }
 }

@@ -14,8 +14,7 @@ export class SeedService {
   constructor(@InjectDataSource() private dataSource: DataSource) {}
 
   async init() {
-    await this.dataSource.dropDatabase();
-    await this.dataSource.synchronize();
+    await this.dataSource.synchronize(true);
 
     // -------- REPOS --------
 
