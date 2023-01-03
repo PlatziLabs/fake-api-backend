@@ -1,5 +1,10 @@
 import { Resolver, Query, Args, ID, Mutation } from '@nestjs/graphql';
-import { CreateUserDto, UpdateUserDto, FilterUsersDto } from '@dtos/user.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  FilterUsersDto,
+  ValidateUserDto,
+} from '@dtos/user.dto';
 import { UsersService } from '@services/users.service';
 import { User } from '@db/entities/user.entity';
 
@@ -33,5 +38,11 @@ export class UsersResolver {
   @Mutation(() => Boolean)
   deleteUser(@Args('id', { type: () => ID }) id: string) {
     return this.usersService.delete(+id);
+  }
+
+  @Query(() => Boolean)
+  async isAvailable(@Args() data: ValidateUserDto) {
+    const { isAvailable } = await this.usersService.isAvailable(data);
+    return isAvailable;
   }
 }

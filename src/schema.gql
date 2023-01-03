@@ -52,6 +52,7 @@ type Query {
   product(id: ID!): Product!
   users(limit: Float): [User!]!
   user(id: ID!): User!
+  isAvailable(email: String!): Boolean!
   categories: [Category!]!
   category(id: ID!): Category!
   myProfile: User!
