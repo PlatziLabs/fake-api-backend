@@ -65,7 +65,8 @@ import environments from './config/environments';
           dsn: configService.sentryDSN,
           sampleRate: parseFloat(configService.sentrySampleRate),
           environment: configService.env,
-          enabled: configService.env === 'production',
+          // enabled: configService.env === 'production',
+          enabled: false,
           logLevels: ['error'],
         };
       },
