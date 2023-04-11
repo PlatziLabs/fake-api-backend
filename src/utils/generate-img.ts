@@ -18,9 +18,9 @@ export type typeImg =
 export function generateImage(typeImg: typeImg) {
   const random = getRandomInt(0, 10000);
   if (typeImg === 'random') {
-    return `https://api.lorem.space/image?w=640&h=480&r=${random}`;
+    return `https://picsum.photos/640/640&r=${random}`;
   }
-  return `https://api.lorem.space/image/${typeImg}?w=640&h=480&r=${random}`;
+  return `https://picsum.photos/640/640&r=${random}`;
 }
 
 export function getRandomInt(min: number, max: number) {
