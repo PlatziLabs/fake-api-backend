@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker';
+
 export type typeImg =
   | 'movie'
   | 'game'
@@ -15,12 +17,16 @@ export type typeImg =
   | 'house'
   | 'random';
 
-export function generateImage(typeImg: typeImg) {
+export function generateImage(category: typeImg) {
   const random = getRandomInt(0, 10000);
-  if (typeImg === 'random') {
-    return `https://picsum.photos/640/640?r=${random}`;
-  }
-  return `https://picsum.photos/640/640?r=${random}`;
+  const img = faker.image.urlPicsumPhotos({
+    width: 640,
+    height: 640,
+  });
+  console.log(category);
+  const url = new URL(img);
+  url.searchParams.set('r', random.toString());
+  return url.toString();
 }
 
 export function getRandomInt(min: number, max: number) {
