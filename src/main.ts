@@ -3,7 +3,6 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { TypeORMExceptionFilter } from '@utils/filters/typeorm.filter';
 import { SeedService } from '@services/seed.service';
-import { GraphqlInterceptor } from '@ntegral/nestjs-sentry';
 
 import { AppModule } from './app.module';
 
@@ -23,10 +22,7 @@ async function bootstrap() {
       },
     }),
   );
-  app.useGlobalInterceptors(
-    new ClassSerializerInterceptor(app.get(Reflector)),
-    new GraphqlInterceptor(),
-  );
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.useGlobalFilters(new TypeORMExceptionFilter());
 
   const config = new DocumentBuilder()

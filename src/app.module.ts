@@ -5,7 +5,6 @@ import { MulterModule } from '@nestjs/platform-express';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule, ConfigType } from '@nestjs/config';
-import { SentryModule } from '@ntegral/nestjs-sentry';
 
 import { SeedController } from './controllers/seed.controller';
 import { ProductsController } from './controllers/products.controller';
@@ -52,25 +51,9 @@ import environments from './config/environments';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      debug: false,
       playground: true,
       introspection: true,
       autoSchemaFile: './src/schema.gql',
-    }),
-    SentryModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (configService: ConfigType<typeof config>) => {
-        return {
-          inject: [configService.sentrySampleRate],
-          dsn: configService.sentryDSN,
-          sampleRate: parseFloat(configService.sentrySampleRate),
-          environment: configService.env,
-          // enabled: configService.env === 'production',
-          enabled: false,
-          logLevels: ['error'],
-        };
-      },
-      inject: [config.KEY],
     }),
     DatabaseModule,
   ],
