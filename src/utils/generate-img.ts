@@ -1,5 +1,3 @@
-import { faker } from '@faker-js/faker';
-
 export type typeImg =
   | 'movie'
   | 'game'
@@ -17,16 +15,20 @@ export type typeImg =
   | 'house'
   | 'random';
 
+const images = [
+  'https://i.imgur.com/5iNAL9T.jpeg',
+  'https://i.imgur.com/x0K3SKA.jpeg',
+  'https://i.imgur.com/Dm2pPfd.jpeg',
+  'https://i.imgur.com/zQwsC2m.jpeg',
+  'https://i.imgur.com/0KlqHu9.jpeg',
+  'https://i.imgur.com/lVH533g.jpeg',
+  'https://i.imgur.com/QEGACen.jpeg',
+];
+
 export function generateImage(category: typeImg) {
-  const random = getRandomInt(0, 10000);
-  const img = faker.image.urlPicsumPhotos({
-    width: 640,
-    height: 640,
-  });
+  const position = getRandomInt(0, images.length);
   console.log(category);
-  const url = new URL(img);
-  url.searchParams.set('r', random.toString());
-  return url.toString();
+  return images[position];
 }
 
 export function getRandomInt(min: number, max: number) {
