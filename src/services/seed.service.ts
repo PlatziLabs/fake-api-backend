@@ -90,6 +90,29 @@ export class SeedService {
 
     const productsData: Array<Partial<Product>> = [];
     const size = 200;
+    const category = faker.helpers.arrayElement(categoriesRta);
+    productsData.push({
+      title: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price(), 10),
+      description: faker.commerce.productDescription(),
+      category,
+      images: JSON.stringify([
+        'https://i.imgur.com/wUBxCQh.jpeg',
+        'https://i.imgur.com/9aM8pz3.jpeg',
+        'https://i.imgur.com/ZDMM36B.jpeg',
+      ]),
+    });
+    productsData.push({
+      title: faker.commerce.productName(),
+      price: parseInt(faker.commerce.price(), 10),
+      description: faker.commerce.productDescription(),
+      category,
+      images: JSON.stringify([
+        'https://i.imgur.com/CCnU4YX.jpeg',
+        'https://i.imgur.com/JANnz25.jpeg',
+        'https://i.imgur.com/ioc7lwM.jpeg',
+      ]),
+    });
     for (let index = 0; index < size; index++) {
       const category = faker.helpers.arrayElement(categoriesRta);
       const images = [
