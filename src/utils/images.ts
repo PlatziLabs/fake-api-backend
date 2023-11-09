@@ -85,13 +85,70 @@ export const CATEGORIES = [
   },
   {
     id: 2,
-    name: 'Furniture',
+    name: 'Electronics',
     image: 'https://i.imgur.com/ZANVnHE.jpeg',
     products: [
       [
         'https://i.imgur.com/ZANVnHE.jpeg',
         'https://i.imgur.com/Ro5z6Tn.jpeg',
         'https://i.imgur.com/woA93Li.jpeg',
+      ],
+      [
+        'https://i.imgur.com/yVeIeDa.jpeg',
+        'https://i.imgur.com/jByJ4ih.jpeg',
+        'https://i.imgur.com/KXj6Tpb.jpeg',
+      ],
+      [
+        'https://i.imgur.com/SolkFEB.jpeg',
+        'https://i.imgur.com/KIGW49u.jpeg',
+        'https://i.imgur.com/mWwek7p.jpeg',
+      ],
+      [
+        'https://i.imgur.com/keVCVIa.jpeg',
+        'https://i.imgur.com/afHY7v2.jpeg',
+        'https://i.imgur.com/yAOihUe.jpeg',
+      ],
+      [
+        'https://i.imgur.com/w3Y8NwQ.jpeg',
+        'https://i.imgur.com/WJFOGIC.jpeg',
+        'https://i.imgur.com/dV4Nklf.jpeg',
+      ],
+      [
+        'https://i.imgur.com/OKn1KFI.jpeg',
+        'https://i.imgur.com/G4f21Ai.jpeg',
+        'https://i.imgur.com/Z9oKRVJ.jpeg',
+      ],
+      [
+        'https://i.imgur.com/ItHcq7o.jpeg',
+        'https://i.imgur.com/55GM3XZ.jpeg',
+        'https://i.imgur.com/tcNJxoW.jpeg',
+      ],
+      [
+        'https://i.imgur.com/YaSqa06.jpeg',
+        'https://i.imgur.com/isQAliJ.jpeg',
+        'https://i.imgur.com/5B8UQfh.jpeg',
+      ],
+      [
+        'https://i.imgur.com/yb9UQKL.jpeg',
+        'https://i.imgur.com/m2owtQG.jpeg',
+        'https://i.imgur.com/bNiORct.jpeg',
+      ],
+      [
+        'https://i.imgur.com/LGk9Jn2.jpeg',
+        'https://i.imgur.com/1ttYWaI.jpeg',
+        'https://i.imgur.com/sPRWnJH.jpeg',
+      ],
+    ],
+  },
+  {
+    id: 3,
+    name: 'Furniture',
+    image: 'https://i.imgur.com/Qphac99.jpeg',
+    products: [
+      [
+        'https://i.imgur.com/Qphac99.jpeg',
+        'https://i.imgur.com/dJjpEgG.jpeg',
+        'https://i.imgur.com/MxJyADq.jpeg',
       ],
       [
         'https://i.imgur.com/DMQHGA0.jpeg',
@@ -122,7 +179,7 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     name: 'Shoes',
     image: 'https://i.imgur.com/qNOjJje.jpeg',
     products: [
@@ -179,83 +236,45 @@ export const CATEGORIES = [
     ],
   },
   {
-    id: 4,
-    name: 'Miscellaneous',
-    image: 'https://i.imgur.com/BG8J0Fj.jpeg',
-    products: [
-      [
-        'https://i.imgur.com/BG8J0Fj.jpeg',
-        'https://i.imgur.com/ujHBpCX.jpeg',
-        'https://i.imgur.com/WHeVL9H.jpeg',
-      ],
-      [
-        'https://i.imgur.com/Ex5x3IU.jpeg',
-        'https://i.imgur.com/z7wAQwe.jpeg',
-        'https://i.imgur.com/kc0Dj9S.jpeg',
-      ],
-      [
-        'https://i.imgur.com/xPDwUb3.jpeg',
-        'https://i.imgur.com/3rfp691.jpeg',
-        'https://i.imgur.com/kG05a29.jpeg',
-      ],
-      [
-        'https://i.imgur.com/jVfoZnP.jpeg',
-        'https://i.imgur.com/Tnl15XK.jpeg',
-        'https://i.imgur.com/7OqTPO6.jpeg',
-      ],
-      [
-        'https://i.imgur.com/Lqaqz59.jpeg',
-        'https://i.imgur.com/uSqWK0m.jpeg',
-        'https://i.imgur.com/atWACf1.jpeg',
-      ],
-      [
-        'https://i.imgur.com/0qQBkxX.jpeg',
-        'https://i.imgur.com/I5g1DoE.jpeg',
-        'https://i.imgur.com/myfFQBW.jpeg',
-      ],
-      [
-        'https://i.imgur.com/TF0pXdL.jpeg',
-        'https://i.imgur.com/BLDByXP.jpeg',
-        'https://i.imgur.com/b7trwCv.jpeg',
-      ],
-    ],
-  },
-  {
     id: 5,
-    name: 'Furniture',
-    image: 'https://i.imgur.com/Qphac99.jpeg',
+    name: 'Miscellaneous',
+    image: 'https://i.imgur.com/BG8J0Fj.jpg',
     products: [
       [
-        'https://i.imgur.com/Qphac99.jpeg',
-        'https://i.imgur.com/dJjpEgG.jpeg',
-        'https://i.imgur.com/MxJyADq.jpeg',
+        'https://i.imgur.com/BG8J0Fj.jpg',
+        'https://i.imgur.com/ujHBpCX.jpg',
+        'https://i.imgur.com/WHeVL9H.jpg',
       ],
       [
-        'https://i.imgur.com/DMQHGA0.jpeg',
-        'https://i.imgur.com/qrs9QBg.jpeg',
-        'https://i.imgur.com/XVp8T1I.jpeg',
+        'https://i.imgur.com/Ex5x3IU.jpg',
+        'https://i.imgur.com/z7wAQwe.jpg',
+        'https://i.imgur.com/kc0Dj9S.jpg',
       ],
       [
-        'https://i.imgur.com/NWIJKUj.jpeg',
-        'https://i.imgur.com/Jn1YSLk.jpeg',
-        'https://i.imgur.com/VNZRvx5.jpeg',
+        'https://i.imgur.com/xPDwUb3.jpg',
+        'https://i.imgur.com/3rfp691.jpg',
+        'https://i.imgur.com/kG05a29.jpg',
       ],
       [
-        'https://i.imgur.com/6wkyyIN.jpeg',
-        'https://i.imgur.com/Ald3Rec.jpeg',
-        'https://i.imgur.com/dIqo03c.jpeg',
+        'https://i.imgur.com/jVfoZnP.jpg',
+        'https://i.imgur.com/Tnl15XK.jpg',
+        'https://i.imgur.com/7OqTPO6.jpg',
       ],
       [
-        'https://i.imgur.com/4lTaHfF.jpeg',
-        'https://i.imgur.com/JktHE1C.jpeg',
-        'https://i.imgur.com/cQeXQMi.jpeg',
+        'https://i.imgur.com/Lqaqz59.jpg',
+        'https://i.imgur.com/uSqWK0m.jpg',
+        'https://i.imgur.com/atWACf1.jpg',
       ],
       [
-        'https://i.imgur.com/3oXNBst.jpeg',
-        'https://i.imgur.com/ErYYZnT.jpeg',
-        'https://i.imgur.com/boBPwYW.jpeg',
+        'https://i.imgur.com/0qQBkxX.jpg',
+        'https://i.imgur.com/I5g1DoE.jpg',
+        'https://i.imgur.com/myfFQBW.jpg',
       ],
-      ['https://i.imgur.com/3dU0m72.jpeg', 'https://i.imgur.com/zPU3EVa.jpeg'],
+      [
+        'https://i.imgur.com/TF0pXdL.jpg',
+        'https://i.imgur.com/BLDByXP.jpg',
+        'https://i.imgur.com/b7trwCv.jpg',
+      ],
     ],
   },
 ];
