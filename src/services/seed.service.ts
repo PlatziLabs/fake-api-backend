@@ -7,7 +7,6 @@ import { Category } from '@db/entities/category.entity';
 import { Product } from '@db/entities/product.entity';
 import { User } from '@db/entities/user.entity';
 import { Role } from '@models/roles';
-import { generateAvatar } from '@utils/generate-img';
 import { CATEGORIES } from '@utils/images';
 
 @Injectable()
