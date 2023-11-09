@@ -7,7 +7,8 @@ import { Category } from '@db/entities/category.entity';
 import { Product } from '@db/entities/product.entity';
 import { User } from '@db/entities/user.entity';
 import { Role } from '@models/roles';
-import { generateImage } from '@utils/generate-img';
+import { generateAvatar } from '@utils/generate-img';
+import { CATEGORIES } from '@utils/images';
 
 @Injectable()
 export class SeedService {
@@ -31,7 +32,7 @@ export class SeedService {
         password: 'changeme',
         name: 'Jhon',
         role: Role.customer,
-        avatar: generateImage('face'),
+        avatar: generateAvatar(),
       },
       {
         id: 2,
@@ -39,7 +40,7 @@ export class SeedService {
         password: '12345',
         name: 'Maria',
         role: Role.customer,
-        avatar: generateImage('face'),
+        avatar: generateAvatar(),
       },
       {
         id: 3,
@@ -47,87 +48,36 @@ export class SeedService {
         password: 'admin123',
         name: 'Admin',
         role: Role.admin,
-        avatar: generateImage('face'),
+        avatar: generateAvatar(),
       },
     ]);
 
     // -------- CATEGORIES --------
-
-    const categoriesRta = await categoriesRepo.save([
-      {
-        id: 1,
-        name: 'Clothes',
-        keyLoremSpace: 'fashion',
-        image: generateImage('fashion'),
-      },
-      {
-        id: 2,
-        name: 'Electronics',
-        keyLoremSpace: 'watch',
-        image: generateImage('watch'),
-      },
-      {
-        id: 3,
-        name: 'Furniture',
-        keyLoremSpace: 'furniture',
-        image: generateImage('furniture'),
-      },
-      {
-        id: 4,
-        name: 'Shoes',
-        keyLoremSpace: 'shoes',
-        image: generateImage('shoes'),
-      },
-      {
-        id: 5,
-        name: 'Others',
-        keyLoremSpace: 'random',
-        image: generateImage('random'),
-      },
-    ]);
+    const categoriesData = CATEGORIES.map((item) => ({
+      id: item.id,
+      name: item.name,
+      image: item.image,
+    }));
+    const categoriesRta = await categoriesRepo.save(categoriesData);
 
     // -------- Products --------
 
     const productsData: Array<Partial<Product>> = [];
-    const size = 200;
-    const category = faker.helpers.arrayElement(categoriesRta);
-    productsData.push({
-      title: faker.commerce.productName(),
-      price: parseInt(faker.commerce.price(), 10),
-      description: faker.commerce.productDescription(),
-      category,
-      images: JSON.stringify([
-        'https://i.imgur.com/wUBxCQh.jpeg',
-        'https://i.imgur.com/9aM8pz3.jpeg',
-        'https://i.imgur.com/ZDMM36B.jpeg',
-      ]),
-    });
-    productsData.push({
-      title: faker.commerce.productName(),
-      price: parseInt(faker.commerce.price(), 10),
-      description: faker.commerce.productDescription(),
-      category,
-      images: JSON.stringify([
-        'https://i.imgur.com/CCnU4YX.jpeg',
-        'https://i.imgur.com/JANnz25.jpeg',
-        'https://i.imgur.com/ioc7lwM.jpeg',
-      ]),
-    });
-    for (let index = 0; index < size; index++) {
-      const category = faker.helpers.arrayElement(categoriesRta);
-      const images = [
-        generateImage(category.keyLoremSpace),
-        generateImage(category.keyLoremSpace),
-        generateImage(category.keyLoremSpace),
-      ];
-      productsData.push({
-        title: faker.commerce.productName(),
-        price: parseInt(faker.commerce.price(), 10),
-        description: faker.commerce.productDescription(),
-        category,
-        images: JSON.stringify(images),
+    CATEGORIES.forEach((category) => {
+      category.products.forEach((images) => {
+        const categoryEntity = categoriesRta.find(
+          (item) => item.id === category.id,
+        );
+        productsData.push({
+          title: faker.commerce.productName(),
+          price: parseInt(faker.commerce.price(), 10),
+          description: faker.commerce.productDescription(),
+          category: categoryEntity,
+          images: JSON.stringify(images),
+        });
       });
-    }
+    });
+
     await productsRepo.save(productsData);
 
     // -------- COUNTERS --------

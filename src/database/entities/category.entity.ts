@@ -6,8 +6,6 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { Exclude } from 'class-transformer';
-import { typeImg } from '@models/type-img';
 import { Product } from './product.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
@@ -25,9 +23,6 @@ export class Category {
   @Field()
   @Column()
   image: string;
-
-  @Exclude()
-  keyLoremSpace: typeImg;
 
   @Field()
   @CreateDateColumn({
