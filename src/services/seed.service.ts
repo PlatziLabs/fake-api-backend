@@ -32,7 +32,7 @@ export class SeedService {
         password: 'changeme',
         name: 'Jhon',
         role: Role.customer,
-        avatar: generateAvatar(),
+        avatar: 'https://i.imgur.com/LDOO4Qs.jpg',
       },
       {
         id: 2,
@@ -40,7 +40,7 @@ export class SeedService {
         password: '12345',
         name: 'Maria',
         role: Role.customer,
-        avatar: generateAvatar(),
+        avatar: 'https://i.imgur.com/DTfowdu.jpg',
       },
       {
         id: 3,
@@ -48,7 +48,7 @@ export class SeedService {
         password: 'admin123',
         name: 'Admin',
         role: Role.admin,
-        avatar: generateAvatar(),
+        avatar: 'https://i.imgur.com/yhW6Yw1.jpg',
       },
     ]);
 
