@@ -15,6 +15,79 @@ export type typeImg =
   | 'house'
   | 'random';
 
+const images2 = {
+  clothes: [
+    [
+      'https://i.imgur.com/QkIa5tT.jpeg',
+      'https://i.imgur.com/jb5Yu0h.jpeg',
+      'https://i.imgur.com/UlxxXyG.jpeg'
+    ],
+    [
+      'https://i.imgur.com/1twoaDy.jpeg',
+      'https://i.imgur.com/FDwQgLy.jpeg',
+      'https://i.imgur.com/kg1ZhhH.jpeg',
+    ]
+    , [
+      'https://i.imgur.com/cHddUCu.jpeg',
+      'https://i.imgur.com/CFOjAgK.jpeg',
+      'https://i.imgur.com/wbIMMme.jpeg',
+    ], [
+      'https://i.imgur.com/R2PN9Wq.jpeg',
+      'https://i.imgur.com/IvxMPFr.jpeg',
+      'https://i.imgur.com/7eW9nXP.jpeg',
+    ], [
+      'https://i.imgur.com/cSytoSD.jpeg',
+      'https://i.imgur.com/WwKucXb.jpeg',
+      'https://i.imgur.com/cE2Dxh9.jpeg',
+    ], [
+      'https://i.imgur.com/ZKGofuB.jpeg',
+      'https://i.imgur.com/GJi73H0.jpeg',
+      'https://i.imgur.com/633Fqrz.jpeg',
+    ], [
+      'https://i.imgur.com/mp3rUty.jpeg',
+      'https://i.imgur.com/JQRGIc2.jpeg',
+    ], [
+      'https://i.imgur.com/9LFjwpI.jpeg',
+      'https://i.imgur.com/vzrTgUR.jpeg',
+      'https://i.imgur.com/p5NdI6n.jpeg',
+    ], [
+      'https://i.imgur.com/R3iobJA.jpeg',
+      'https://i.imgur.com/Wv2KTsf.jpeg',
+      'https://i.imgur.com/76HAxcA.jpeg',
+    ], [
+      'https://i.imgur.com/wXuQ7bm.jpeg',
+      'https://i.imgur.com/BZrIEmb.jpeg',
+      'https://i.imgur.com/KcT6BE0.jpeg',
+    ], [
+      'https://i.imgur.com/cBuLvBi.jpeg',
+      'https://i.imgur.com/N1GkCIR.jpeg',
+      'https://i.imgur.com/kKc9A5p.jpeg',
+    ], [
+      'https://i.imgur.com/KeqG6r4.jpeg',
+      'https://i.imgur.com/xGQOw3p.jpeg',
+      'https://i.imgur.com/oO5OUjb.jpeg',
+    ], [
+      'https://i.imgur.com/UsFIvYs.jpeg',
+      'https://i.imgur.com/YIq57b6.jpeg',
+    ], [
+      'https://i.imgur.com/eGOUveI.jpeg',
+      'https://i.imgur.com/UcsGO7E.jpeg',
+      'https://i.imgur.com/NLn4e7S.jpeg',
+    ], [
+      'https://i.imgur.com/axsyGpD.jpeg',
+      'https://i.imgur.com/T8oq9X2.jpeg',
+      'https://i.imgur.com/J6MinJn.jpeg',
+    ], [
+      'https://i.imgur.com/Y54Bt8J.jpeg',
+      'https://i.imgur.com/SZPDSgy.jpeg',
+      'https://i.imgur.com/sJv4Xx0.jpeg',
+    ], [
+      'https://i.imgur.com/9DqEOV5.jpeg',
+      'https://i.imgur.com/ae0AEYn.jpeg',
+      'https://i.imgur.com/mZ4rUjj.jpeg',
+    ]]
+}
+
 const images = [
   'https://i.imgur.com/5iNAL9T.jpeg',
   'https://i.imgur.com/x0K3SKA.jpeg',
