@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { faker } from '@faker-js/faker';
 
 import { Category } from '@db/entities/category.entity';
 import { Product } from '@db/entities/product.entity';
 import { User } from '@db/entities/user.entity';
 import { Role } from '@models/roles';
-import { CATEGORIES } from '@utils/images';
+import * as fs from 'fs';
 
 @Injectable()
 export class SeedService {
@@ -52,29 +51,23 @@ export class SeedService {
     ]);
 
     // -------- CATEGORIES --------
-    const categoriesData = CATEGORIES.map((item) => ({
-      id: item.id,
-      name: item.name,
-      image: item.image,
-    }));
+    const categoriesData = this.loadCategoriesJson();
     const categoriesRta = await categoriesRepo.save(categoriesData);
 
     // -------- Products --------
 
-    const productsData: Array<Partial<Product>> = [];
-    CATEGORIES.forEach((category) => {
-      category.products.forEach((images) => {
-        const categoryEntity = categoriesRta.find(
-          (item) => item.id === category.id,
-        );
-        productsData.push({
-          title: faker.commerce.productName(),
-          price: parseInt(faker.commerce.price(), 10),
-          description: faker.commerce.productDescription(),
-          category: categoryEntity,
-          images: JSON.stringify(images),
-        });
-      });
+    const productsData = this.loadProductsJson().map((product) => {
+      const categoryEntity = categoriesRta.find(
+        (item) => item.id === parseInt(product.category_id, 10),
+      );
+
+      return {
+        title: product.title,
+        price: parseInt(product.price, 10),
+        description: product.description,
+        images: product.images,
+        category: categoryEntity,
+      };
     });
 
     await productsRepo.save(productsData);
@@ -90,5 +83,19 @@ export class SeedService {
       categories: categories.length,
       products: products.length,
     };
+  }
+
+  loadProductsJson(): any[] {
+    const products = JSON.parse(
+      fs.readFileSync('src/dataset/products.json', 'utf8'),
+    );
+    return products;
+  }
+
+  loadCategoriesJson(): Category[] {
+    const categories = JSON.parse(
+      fs.readFileSync('src/dataset/categories.json', 'utf8'),
+    );
+    return categories;
   }
 }

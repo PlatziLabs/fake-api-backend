@@ -90,12 +90,8 @@
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/libs/"
-    ],
-    "moduleNameMapper": {
-      "^@app/data-set(|/.*)$": "<rootDir>/libs/data-set/src/$1"
-    }
+      "<rootDir>/src/"
+    ]
   },
   "config": {
     "commitizen": {
@@ -103,6 +99,6 @@
     }
   },
   "engines": {
-    "node": "18.x"
+    "node": "20.x"
   }
 }
