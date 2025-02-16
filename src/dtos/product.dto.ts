@@ -45,7 +45,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @ArrayMinSize(1)
   @Field(() => [String])
-  images: string;
+  images: string[];
 }
 
 @InputType()
@@ -80,7 +80,7 @@ export class UpdateProductDto {
   @IsOptional()
   @ArrayMinSize(1)
   @Field(() => [String], { nullable: true })
-  images: string;
+  images: string[];
 }
 
 @ArgsType()

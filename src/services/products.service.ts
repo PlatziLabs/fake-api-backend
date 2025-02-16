@@ -88,10 +88,11 @@ export class ProductsService {
 
   async update(id: Product['id'], changes: UpdateProductDto) {
     const product = await this.findById(id);
-    if (changes.images) {
-      changes.images = JSON.stringify(changes.images);
-    }
-    this.productsRepo.merge(product, changes);
+    const images = changes.images.join(',') || product.images;
+    this.productsRepo.merge(product, {
+      ...changes,
+      images,
+    });
     return this.productsRepo.save(product);
   }
 
@@ -102,7 +103,7 @@ export class ProductsService {
     });
     const newProduct = this.productsRepo.create({
       ...data,
-      images: JSON.stringify(data.images),
+      images: data.images.join(','),
     });
     newProduct.category = category;
     return this.productsRepo.save(newProduct);
