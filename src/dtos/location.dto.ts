@@ -1,8 +1,4 @@
-import {
-  IsNumber,
-  IsOptional,
-  IsLatLong,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsLatLong } from 'class-validator';
 import { ArgsType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 @ArgsType()
