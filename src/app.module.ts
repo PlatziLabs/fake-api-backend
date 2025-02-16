@@ -11,11 +11,13 @@ import { ProductsController } from './controllers/products.controller';
 import { UsersController } from './controllers/users.controller';
 import { AuthController } from './controllers/auth.controller';
 import { CategoriesController } from './controllers/categories.controller';
+import { LocationsController } from './controllers/locations.controller';
 import { ProductsService } from './services/products.service';
 import { CategoriesService } from './services/categories.service';
 import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 import { SeedService } from './services/seed.service';
+import { LocationsService } from './services/locations.service';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { FilesController } from './controllers/files.controller';
@@ -64,6 +66,7 @@ import environments from './config/environments';
     AuthController,
     CategoriesController,
     FilesController,
+    LocationsController,
   ],
   providers: [
     SeedService,
@@ -71,6 +74,7 @@ import environments from './config/environments';
     CategoriesService,
     AuthService,
     UsersService,
+    LocationsService,
     LocalStrategy,
     JwtStrategy,
     ProductsResolver,

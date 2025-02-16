@@ -6,6 +6,7 @@
 type Product {
   id: ID!
   title: String!
+  slug: String!
   price: Float!
   description: String!
   category: Category!
@@ -23,6 +24,7 @@ scalar DateTime
 type Category {
   id: ID!
   name: String!
+  slug: String!
   image: String!
   creationAt: DateTime!
   updatedAt: DateTime!

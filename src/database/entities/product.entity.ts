@@ -23,6 +23,10 @@ export class Product {
   title: string;
 
   @Field()
+  @Column({ unique: true })
+  slug: string;
+
+  @Field()
   @Column()
   price: number;
 

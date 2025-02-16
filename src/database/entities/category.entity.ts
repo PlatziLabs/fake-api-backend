@@ -21,6 +21,10 @@ export class Category {
   name: string;
 
   @Field()
+  @Column({ unique: true })
+  slug: string;
+
+  @Field()
   @Column()
   image: string;
 
