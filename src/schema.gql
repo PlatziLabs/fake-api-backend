@@ -50,7 +50,7 @@ type Login {
 }
 
 type Query {
-  products(limit: Int, offset: Int, price: Int, price_min: Int, price_max: Int, title: String, categoryId: Float): [Product!]!
+  products(limit: Int, offset: Int, price: Int, price_min: Int, price_max: Int, title: String, categoryId: Float, categorySlug: String): [Product!]!
   product(id: ID!): Product!
   users(limit: Float): [User!]!
   user(id: ID!): User!

@@ -73,6 +73,14 @@ export class ProductsService {
       };
     }
 
+    const { categorySlug } = params;
+    if (categorySlug) {
+      options.where = {
+        ...options.where,
+        category: { slug: categorySlug },
+      };
+    }
+
     if (params?.limit > 0 && params?.offset >= 0) {
       options.take = params?.limit;
       options.skip = params?.offset;
@@ -84,6 +92,13 @@ export class ProductsService {
     return this.productsRepo.findOneOrFail({
       relations: ['category'],
       where: { id },
+    });
+  }
+
+  findBySlug(slug: string) {
+    return this.productsRepo.findOneOrFail({
+      relations: ['category'],
+      where: { slug },
     });
   }
 

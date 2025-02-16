@@ -120,4 +120,9 @@ export class FilterProductsDto {
   @IsNumber()
   @Field({ nullable: true })
   categoryId: number;
+
+  @IsOptional()
+  @IsString()
+  @Field({ nullable: true })
+  categorySlug: string;
 }
