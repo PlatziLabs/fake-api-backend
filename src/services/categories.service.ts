@@ -8,6 +8,7 @@ import {
   FilterCategoriesDto,
 } from '@dtos/category.dto';
 import { Category } from '@db/entities/category.entity';
+import { generateSlug } from '@utils/slug';
 
 @Injectable()
 export class CategoriesService {
@@ -30,12 +31,20 @@ export class CategoriesService {
 
   create(dto: CreateCategoryDto) {
     const newCategory = this.categoriesRepo.create(dto);
-    return this.categoriesRepo.save(newCategory);
+    return this.categoriesRepo.save({
+      ...newCategory,
+      slug: generateSlug(newCategory.name),
+    });
   }
 
   async update(id: Category['id'], changes: UpdateCategoryDto) {
     const category = await this.findById(id);
-    this.categoriesRepo.merge(category, changes);
+
+    const slug = changes?.name ? generateSlug(changes.name) : category.slug;
+    this.categoriesRepo.merge(category, {
+      ...changes,
+      slug,
+    });
     return this.categoriesRepo.save(category);
   }
 
