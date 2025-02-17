@@ -31,6 +31,11 @@ export class ProductsController {
     return this.productsService.findById(id);
   }
 
+  @Get('slug/:slug')
+  getProductBySlug(@Param('slug') slug: string) {
+    return this.productsService.findBySlug(slug);
+  }
+
   @Post()
   create(@Body() product: CreateProductDto) {
     return this.productsService.create(product);

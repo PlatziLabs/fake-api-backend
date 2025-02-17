@@ -14,6 +14,7 @@ import { Category } from '@db/entities/category.entity';
 import { CreateProductDto } from '@dtos/product.dto';
 import { UpdateProductDto } from '@dtos/product.dto';
 import { FilterProductsDto } from '@dtos/product.dto';
+import { generateSlug } from '@utils/slug';
 
 @Injectable()
 export class ProductsService {
@@ -72,6 +73,14 @@ export class ProductsService {
       };
     }
 
+    const { categorySlug } = params;
+    if (categorySlug) {
+      options.where = {
+        ...options.where,
+        category: { slug: categorySlug },
+      };
+    }
+
     if (params?.limit > 0 && params?.offset >= 0) {
       options.take = params?.limit;
       options.skip = params?.offset;
@@ -86,12 +95,22 @@ export class ProductsService {
     });
   }
 
+  findBySlug(slug: string) {
+    return this.productsRepo.findOneOrFail({
+      relations: ['category'],
+      where: { slug },
+    });
+  }
+
   async update(id: Product['id'], changes: UpdateProductDto) {
     const product = await this.findById(id);
-    if (changes.images) {
-      changes.images = JSON.stringify(changes.images);
-    }
-    this.productsRepo.merge(product, changes);
+    const images = changes.images.join(',') || product.images;
+    const slug = changes?.title ? generateSlug(changes.title) : product.slug;
+    this.productsRepo.merge(product, {
+      ...changes,
+      images,
+      slug,
+    });
     return this.productsRepo.save(product);
   }
 
@@ -102,7 +121,8 @@ export class ProductsService {
     });
     const newProduct = this.productsRepo.create({
       ...data,
-      images: JSON.stringify(data.images),
+      images: data.images.join(','),
+      slug: generateSlug(data.title),
     });
     newProduct.category = category;
     return this.productsRepo.save(newProduct);
