@@ -7,6 +7,7 @@ import {
   FindManyOptions,
   Like,
   And,
+  Not,
 } from 'typeorm';
 
 import { Product } from '@db/entities/product.entity';
@@ -95,11 +96,28 @@ export class ProductsService {
     });
   }
 
+  async getRelatedProducts(id: number) {
+    const product = await this.findById(id);
+
+    return this.productsRepo.find({
+      relations: ['category'],
+      where: {
+        category: { id: product.category.id },
+        id: Not(id),
+      },
+    });
+  }
+
   findBySlug(slug: string) {
     return this.productsRepo.findOneOrFail({
       relations: ['category'],
       where: { slug },
     });
+  }
+
+  async getRelatedProductsBySlug(slug: string) {
+    const product = await this.findBySlug(slug);
+    return this.getRelatedProducts(product.id);
   }
 
   async update(id: Product['id'], changes: UpdateProductDto) {
