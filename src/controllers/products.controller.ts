@@ -31,9 +31,19 @@ export class ProductsController {
     return this.productsService.findById(id);
   }
 
+  @Get(':id/related')
+  getRelatedProducts(@Param('id', ParseIntPipe) id: number) {
+    return this.productsService.getRelatedProducts(id);
+  }
+
   @Get('slug/:slug')
   getProductBySlug(@Param('slug') slug: string) {
     return this.productsService.findBySlug(slug);
+  }
+
+  @Get('slug/:slug/related')
+  getRelatedProductsBySlug(@Param('slug') slug: string) {
+    return this.productsService.getRelatedProductsBySlug(slug);
   }
 
   @Post()

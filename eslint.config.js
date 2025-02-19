@@ -1,4 +1,7 @@
-module.exports = {
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+
+module.exports = tseslint.config({
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: 'tsconfig.json',
@@ -22,4 +25,4 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
-};
+});
