@@ -9,7 +9,7 @@ import {
 import { Product } from './product.entity';
 import { Field, ID, ObjectType } from '@nestjs/graphql';
 
-@ObjectType({ description: 'category ' })
+@ObjectType({ description: 'category' })
 @Entity()
 export class Category {
   @Field(() => ID)

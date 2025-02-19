@@ -12,6 +12,7 @@ import {
 } from 'class-validator';
 import { Field, InputType, ArgsType, Int } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsModerated } from '@decorators/moderation.decorator';
 
 @InputType()
 export class CreateProductDto {
@@ -19,6 +20,7 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   @Field()
+  @IsModerated()
   title: string;
 
   @ApiProperty()
@@ -31,6 +33,7 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   @Field()
+  @IsModerated()
   description: string;
 
   @ApiProperty()
@@ -54,6 +57,7 @@ export class UpdateProductDto {
   @IsString()
   @IsOptional()
   @Field({ nullable: true })
+  @IsModerated()
   title: string;
 
   @ApiProperty()
@@ -66,6 +70,7 @@ export class UpdateProductDto {
   @IsString()
   @IsOptional()
   @Field({ nullable: true })
+  @IsModerated()
   description: string;
 
   @ApiProperty()
