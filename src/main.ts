@@ -3,11 +3,13 @@ import { NestFactory, Reflector } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { TypeORMExceptionFilter } from '@utils/filters/typeorm.filter';
 import { SeedService } from '@services/seed.service';
+import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(helmet());
   app.setGlobalPrefix('api/v1');
   app.enableCors({
     origin: '*',
@@ -30,7 +32,9 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
+  SwaggerModule.setup('docs', app, document, {
+    jsonDocumentUrl: 'swagger/json',
+  });
 
   const seedService = app.get(SeedService);
   await seedService.init();

@@ -2,7 +2,7 @@ import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { Login } from '@models/login.model';
 import { AuthService } from '@services/auth.service';
 import { UsersService } from '@services/users.service';
-import { UseGuards } from '@nestjs/common';
+import { NotFoundException, UseGuards } from '@nestjs/common';
 import { LocalAuthGqlGuard } from '@guards/local-auth-gql.guard';
 import { CurrentUserGql } from '@decorators/current-user-gql.decorator';
 import { User } from '@db/entities/user.entity';
@@ -32,7 +32,10 @@ export class AuthResolver {
   @UseGuards(JwtAuthGqlGuard)
   @Query(() => User)
   myProfile(@CurrentUserGql() user: Payload) {
-    return this.usersService.findById(user?.userId);
+    if (!user?.userId) {
+      throw new NotFoundException('User not found');
+    }
+    return this.usersService.findById(user.userId);
   }
 
   @Mutation(() => Login)

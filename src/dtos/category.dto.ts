@@ -7,6 +7,7 @@ import {
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Field, InputType, ArgsType } from '@nestjs/graphql';
+import { IsModerated } from '@decorators/moderation.decorator';
 
 @InputType()
 export class CreateCategoryDto {
@@ -14,6 +15,7 @@ export class CreateCategoryDto {
   @IsString()
   @IsNotEmpty()
   @Field()
+  @IsModerated()
   name: string;
 
   @ApiProperty()
@@ -29,6 +31,7 @@ export class UpdateCategoryDto {
   @IsString()
   @IsOptional()
   @Field({ nullable: true })
+  @IsModerated()
   name: string;
 
   @ApiProperty()
