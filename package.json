@@ -33,7 +33,7 @@
     "@nestjs/swagger": "11.0.3",
     "@nestjs/typeorm": "11.0.0",
     "apollo-server-express": "3.13.0",
-    "better-sqlite3": "11.8.1",
+    "better-sqlite3": "8.6.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
     "file-saver": "2.0.5",
