@@ -6,7 +6,7 @@ import { GenerateLocationsDto } from '@dtos/location.dto';
 
 @Injectable()
 export class LocationsService {
-  generateLocations = (params: GenerateLocationsDto) => {
+  generateLocations(params: GenerateLocationsDto) {
     const { origin, radius, size } = params;
 
     const [latitude, longitude] = origin.split(',');
@@ -20,5 +20,5 @@ export class LocationsService {
     return faker.helpers.multiple(generatorFn, {
       count: size,
     });
-  };
+  }
 }

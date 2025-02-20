@@ -1,4 +1,4 @@
-import { Controller, Post, UseGuards, Req, Get, Body } from '@nestjs/common';
+import { Controller, Post, UseGuards, Req, Get, Body, NotFoundException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { User } from '@db/entities/user.entity';
@@ -32,7 +32,10 @@ export class AuthController {
   @Get('profile')
   profile(@Req() req: Request) {
     const user = req.user as Payload;
-    return this.usersService.findById(user?.userId);
+    if (!user?.userId) {
+      throw new NotFoundException('User not found');
+    }
+    return this.usersService.findById(user.userId);
   }
 
   @Post('refresh-token')

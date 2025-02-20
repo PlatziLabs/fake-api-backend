@@ -12,6 +12,7 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from '@models/roles';
 import { Field, InputType, ArgsType } from '@nestjs/graphql';
+import { IsModerated } from '@decorators/moderation.decorator';
 
 @InputType()
 export class CreateUserDto {
@@ -25,6 +26,7 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @Field()
+  @IsModerated()
   name: string;
 
   @ApiProperty()
@@ -59,6 +61,7 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   @Field({ nullable: true })
+  @IsModerated()
   name: string;
 
   @ApiProperty()
