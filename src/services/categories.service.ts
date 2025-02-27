@@ -29,6 +29,12 @@ export class CategoriesService {
     return this.categoriesRepo.findOneByOrFail({ id });
   }
 
+  findBySlug(slug: string) {
+    return this.categoriesRepo.findOneOrFail({
+      where: { slug },
+    });
+  }
+
   create(dto: CreateCategoryDto) {
     const newCategory = this.categoriesRepo.create(dto);
     return this.categoriesRepo.save({
