@@ -7,9 +7,20 @@ import helmet from 'helmet';
 
 import { AppModule } from './app.module';
 
+const devContentSecurityPolicy = {
+  directives: {
+    scriptSrc: ["'self'", "'unsafe-inline'", 'https://cdn.jsdelivr.net'],
+    imgSrc: ["'self'", 'data:', 'https://cdn.jsdelivr.net'],
+  },
+};
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: devContentSecurityPolicy,
+    }),
+  );
   app.setGlobalPrefix('api/v1');
   app.enableCors({
     origin: '*',
