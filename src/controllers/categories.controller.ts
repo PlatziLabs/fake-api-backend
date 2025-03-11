@@ -36,6 +36,11 @@ export class CategoriesController {
     return this.categoriesService.findById(id);
   }
 
+  @Get('slug/:slug')
+  getCategoryBySlug(@Param('slug') slug: string) {
+    return this.categoriesService.findBySlug(slug);
+  }
+
   @Post()
   create(@Body() category: CreateCategoryDto) {
     return this.categoriesService.create(category);
